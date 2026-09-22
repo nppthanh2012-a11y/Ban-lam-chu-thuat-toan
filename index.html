@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Em làm chủ thuật toán</title>
+    <style>
+    /* Định dạng chung cho toàn trang */
+    body {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background-color: #f0f2f5;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        margin: 0;
+    }
+ 
+    h1 {
+        color: #1877f2;
+    }
+ 
+    #bai-dang {
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        padding: 20px;
+        width: 300px;
+        max-width: 90%;
+        margin-bottom: 20px;
+    }
+ 
+    #ten-nguoi-dang {
+        margin: 0 0 8px 0;
+        color: #050505;
+    }
+ 
+    #noi-dung-bai-dang {
+        color: #333;
+        line-height: 1.5;
+    }
+ 
+    button {
+        border: none;
+        border-radius: 20px;
+        padding: 10px 20px;
+        margin: 5px;
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.15s ease;
+    }
+ 
+    button:hover {
+        transform: scale(1.05);
+    }
+ 
+    /* Nút bị khóa (đang chờ chuyển bài hoặc đã hết lượt) */
+    button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+ 
+    button:disabled:hover {
+        transform: none;
+    }
+ 
+    #nut-xem {
+        background-color: #e4e6eb;
+        color: #050505;
+    }
+ 
+    #nut-thich {
+        background-color: #1877f2;
+        color: white;
+    }
+ 
+    #nut-bo-qua {
+        background-color: #ffe0e0;
+        color: #d32f2f;
+    }
+ 
+    #thong-bao {
+        font-style: italic;
+        color: #65676b;
+        margin-top: 10px;
+        width: 300px;
+        max-width: 90%;
+        text-align: center;
+    }
+ 
+    #bang-diem {
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        padding: 15px 20px;
+        width: 300px;
+        max-width: 90%;
+        margin-top: 20px;
+    }
+ 
+    .ghi-chu {
+        font-size: 12px;
+        color: #65676b;
+        margin: 0 0 8px 0;
+    }
+ 
+    .thanh-chu-de {
+        margin: 8px 0;
+        font-size: 14px;
+    }
+ 
+    .xac-suat {
+        color: #65676b;
+        font-size: 12px;
+    }
+ 
+    .nen-thanh-diem {
+        background-color: #e4e6eb;
+        border-radius: 6px;
+        height: 14px;
+        overflow: hidden;
+        margin-top: 3px;
+    }
+ 
+    .thanh-diem {
+        background-color: #1877f2;
+        height: 100%;
+        transition: width 0.3s ease;
+    }
+ 
+    #tong-ket {
+        background-color: #fff8e1;
+        border: 2px solid #ffca28;
+        border-radius: 12px;
+        padding: 15px 20px;
+        width: 300px;
+        max-width: 90%;
+        margin-top: 20px;
+    }
+ 
+    /* Bố cục 2 cột: trái là bài đăng+nút, phải là bảng điểm+tổng kết */
+    .bo-cuc {
+        display: flex;
+        flex-wrap: wrap; /* Nếu màn hình hẹp (điện thoại), 2 cột tự động xếp chồng xuống dưới */
+        justify-content: center;
+        align-items: flex-start; /* Căn 2 cột theo mép trên, không kéo dài bằng nhau */
+        gap: 24px; /* Khoảng cách giữa 2 cột */
+        width: 100%;
+        max-width: 800px;
+    }
+ 
+    .cot-trai, .cot-phai {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    </style>
+</head>
+<body>
+ 
+    <h1>Em làm chủ thuật toán</h1>
+    <p>Khám phá cách mạng xã hội "hiểu" sở thích của bạn!</p>
+ 
+    <div class="bo-cuc">
+        <!-- CỘT TRÁI: bài đăng + nút tương tác -->
+        <div class="cot-trai">
+            <div id="bai-dang">
+                <h3 id="ten-nguoi-dang">Người dùng ABC</h3>
+                <p id="noi-dung-bai-dang">Đây là nội dung của bài đăng mẫu.</p>
+            </div>
+ 
+            <div>
+                <button id="nut-xem">👁️ Xem</button>
+                <button id="nut-thich">❤️ Thích</button>
+                <button id="nut-bo-qua">⏭️ Bỏ qua</button>
+                <button id="nut-chia-se">🔄 Chia sẻ</button>
+                <button id="nut-tiep-theo">➡️ Nội dung tiếp theo</button>
+            </div>
+ 
+            <!-- aria-live: trình đọc màn hình sẽ đọc thông báo mỗi khi nội dung đổi -->
+            <div id="thong-bao" aria-live="polite"></div>
+        </div>
+ 
+        <!-- CỘT PHẢI: bảng điểm + tổng kết -->
+        <div class="cot-phai">
+            <div id="bang-diem">
+                <h4>Điểm ưu tiên hiện tại:</h4>
+                <p class="ghi-chu">Tỉ lệ % là cơ hội mỗi chủ đề được chọn cho bài kế tiếp.</p>
+                <div id="danh-sach-diem"></div>
+            </div>
+ 
+            <div id="tong-ket" style="display: none;">
+                <h4>📊 Sau 10 bài, đây là số bài em đã xem theo từng chủ đề:</h4>
+                <div id="chi-tiet-tong-ket"></div>
+                <p><strong>Thao tác của em đã ảnh hưởng đến nội dung được đề xuất như thế nào?</strong></p>
+                <p style="font-style: italic; color: #555;">"Mỗi thao tác đều tạo tín hiệu. Được đề xuất nhiều không có nghĩa là đúng hoặc đáng tin."</p>
+                <button id="nut-xem-lich-su">🕘 Xem lịch sử</button>
+                <button id="nut-tai-ket-qua">💾 Tải kết quả</button>
+                <button id="nut-lam-lai">🔄 Làm lại</button>
+                <div id="khu-vuc-lich-su" style="display: none; margin-top: 10px; font-size: 13px; text-align: left;"></div>
+            </div>
+        </div>
+    </div>
+ 
+<script>
+    // ===== CẤU HÌNH =====
+    const SO_BAI_TOI_DA = 10;          // Số bài mỗi lượt chơi
+    const THOI_GIAN_CHO_BO_QUA = 800;  // Chờ bao lâu (ms) rồi tự chuyển bài sau khi "Bỏ qua"
+ 
+    // ===== DỮ LIỆU =====
+    let diemUuTien = {
+        "Học tập": 5,
+        "Thể thao": 5,
+        "Âm nhạc": 5,
+        "Trò chơi": 5,
+        "Khám phá": 5
+    };
+ 
+    // Tên kênh là tên hư cấu, để không gắn nội dung tự viết với người/kênh có thật
+    const danhSachBaiDang = [
+        { nguoiDang: "Lớp Học Vui", noiDung: "Video mới: Bí quyết ôn thi Toán hiệu quả trong 30 ngày!", chuDe: "Học tập" },
+        { nguoiDang: "Góc Tự Học", noiDung: "Phương pháp quản lý thời gian giúp học tập tập trung hơn.", chuDe: "Học tập" },
+        { nguoiDang: "Ôn Thi 360", noiDung: "Chia sẻ bí quyết làm bài thi đạt điểm cao.", chuDe: "Học tập" },
+        { nguoiDang: "Sử Ký Nhanh", noiDung: "Giải thích nhanh một khái niệm Lịch sử thế giới thú vị.", chuDe: "Học tập" },
+ 
+        { nguoiDang: "Bóng Đá 24h", noiDung: "Cập nhật tin chuyển nhượng bóng đá quốc tế mới nhất.", chuDe: "Thể thao" },
+        { nguoiDang: "Sân Cỏ Việt", noiDung: "Bình luận về trận đấu của đội tuyển Việt Nam.", chuDe: "Thể thao" },
+        { nguoiDang: "Khoảnh Khắc Sân Cỏ", noiDung: "Tổng hợp những khoảnh khắc đáng nhớ của bóng đá Việt.", chuDe: "Thể thao" },
+        { nguoiDang: "Bình Luận Trực Tiếp", noiDung: "Trực tiếp và phân tích trận đấu Ngoại hạng Anh.", chuDe: "Thể thao" },
+ 
+        { nguoiDang: "Nhạc Mới Mỗi Ngày", noiDung: "MV mới của một nghệ sĩ Việt đang gây sốt mạng xã hội.", chuDe: "Âm nhạc" },
+        { nguoiDang: "Sao Nhạc Việt", noiDung: "Sản phẩm âm nhạc mới nhất vừa được fan mong chờ.", chuDe: "Âm nhạc" },
+        { nguoiDang: "Phòng Thu Nhỏ", noiDung: "Bản phối nhạc nền karaoke đang được nghe nhiều nhất.", chuDe: "Âm nhạc" },
+        { nguoiDang: "Sân Khấu Truyền Hình", noiDung: "Trích đoạn hấp dẫn từ một chương trình âm nhạc truyền hình.", chuDe: "Âm nhạc" },
+ 
+        { nguoiDang: "Game Thủ Số 1", noiDung: "Video chơi thử tựa game mới đang hot cộng đồng game thủ.", chuDe: "Trò chơi" },
+        { nguoiDang: "Tin Game Tuần", noiDung: "Tổng hợp tin tức làng game trong tuần.", chuDe: "Trò chơi" },
+        { nguoiDang: "Bản Tin Esports", noiDung: "Cập nhật lịch thi đấu giải Esports sắp diễn ra.", chuDe: "Trò chơi" },
+        { nguoiDang: "Góc Game Thủ", noiDung: "Mẹo chơi game giúp lên rank nhanh hơn.", chuDe: "Trò chơi" },
+ 
+        { nguoiDang: "Khoa Học Quanh Ta", noiDung: "Giải thích hiện tượng khoa học thú vị quanh ta.", chuDe: "Khám phá" },
+        { nguoiDang: "Thí Nghiệm Bất Ngờ", noiDung: "Thí nghiệm khoa học sáng tạo và bất ngờ.", chuDe: "Khám phá" },
+        { nguoiDang: "Bí Ẩn Khoa Học", noiDung: "Khám phá một bí ẩn khoa học ít người biết đến.", chuDe: "Khám phá" },
+        { nguoiDang: "Tại Sao Nhỉ", noiDung: "Đặt câu hỏi 'vì sao' về những điều tưởng chừng hiển nhiên.", chuDe: "Khám phá" }
+    ];
+ 
+    // Đếm số bài đã xem theo chủ đề
+    let lichSuXemChuDe = { "Học tập": 0, "Thể thao": 0, "Âm nhạc": 0, "Trò chơi": 0, "Khám phá": 0 };
+    let soBaiDaXem = 0;
+    // Mảng "ghi sổ" lại từng thao tác học sinh đã thực hiện
+    let lichSuThaoTac = [];
+ 
+    // Trạng thái hiện tại
+    let baiDangHienTai = null;
+    let daTuongTacBaiNay = false;
+    let daKetThuc = false;      // true khi đã hiện đủ SO_BAI_TOI_DA bài
+    let timerBoQua = null;      // lưu bộ hẹn giờ của nút "Bỏ qua" để có thể hủy
+ 
+    // ===== HÀM TIỆN ÍCH =====
+    function vietHoaDau(chuoi) {
+        return chuoi.charAt(0).toUpperCase() + chuoi.slice(1);
+    }
+ 
+    function dauCuaDiem(diem) {
+        return diem > 0 ? '+' : '';
+    }
+ 
+    // Khóa/mở các nút tùy trạng thái: đang chờ chuyển bài, hoặc đã hết lượt
+    function capNhatTrangThaiNut() {
+        let dangCho = timerBoQua !== null;
+        ['nut-xem', 'nut-thich', 'nut-bo-qua', 'nut-chia-se'].forEach(function(id) {
+            document.getElementById(id).disabled = dangCho;
+        });
+        document.getElementById('nut-tiep-theo').disabled = dangCho || daKetThuc;
+    }
+ 
+    // ===== GHI NHẬN & TỔNG KẾT =====
+    function ghiNhanBaiDaXem(bai) {
+        lichSuXemChuDe[bai.chuDe]++;
+        soBaiDaXem++;
+        if (soBaiDaXem >= SO_BAI_TOI_DA) {
+            daKetThuc = true;
+            hienThiTongKet();
+            document.getElementById('thong-bao').textContent =
+                'Đây là bài cuối cùng. Em vẫn có thể tương tác với bài này, rồi xem tổng kết bên cạnh nhé!';
+        }
+    }
+ 
+    function hienThiTongKet() {
+        let noiDungHtml = '';
+        for (let tenChuDe in lichSuXemChuDe) {
+            noiDungHtml += `<p>${tenChuDe}: ${lichSuXemChuDe[tenChuDe]} bài</p>`;
+        }
+        document.getElementById('chi-tiet-tong-ket').innerHTML = noiDungHtml;
+        document.getElementById('tong-ket').style.display = 'block';
+    }
+ 
+    // ===== NHẬT KÝ THAO TÁC =====
+    function ghiNhatKy(bai, hanhDong, diem) {
+        lichSuThaoTac.push({ chuDe: bai.chuDe, hanhDong: hanhDong, diem: diem });
+    }
+ 
+    // Lấy nhật ký đầy đủ. Nếu đã ở bài cuối mà chưa tương tác thì tính là "lướt qua"
+    function layNhatKy() {
+        let nhatKy = lichSuThaoTac.slice();
+        if (daKetThuc && !daTuongTacBaiNay) {
+            nhatKy.push({ chuDe: baiDangHienTai.chuDe, hanhDong: 'lướt qua', diem: 0 });
+        }
+        return nhatKy;
+    }
+ 
+    // ===== CHỌN & HIỂN THỊ BÀI ĐĂNG =====
+    // Chọn ngẫu nhiên theo trọng số điểm, không chọn lại đúng bài đang hiển thị
+    function chonBaiDangNgauNhien(baiLoaiTru) {
+        let ungVien = danhSachBaiDang.filter(function(bai) {
+            return bai !== baiLoaiTru;
+        });
+ 
+        let tongDiem = 0;
+        ungVien.forEach(function(bai) {
+            tongDiem += diemUuTien[bai.chuDe];
+        });
+ 
+        let soNgauNhien = Math.random() * tongDiem;
+ 
+        let diemDaDi = 0;
+        for (let i = 0; i < ungVien.length; i++) {
+        diemDaDi += diemUuTien[ungVien[i].chuDe];
+            if (soNgauNhien < diemDaDi) {
+                return ungVien[i];
+            }
+        }
+        return ungVien[ungVien.length - 1];
+    }
+ 
+    // Tính cơ hội (%) mỗi chủ đề được chọn cho bài kế tiếp
+    function tinhXacSuatChuDe() {
+        let tong = 0;
+        let theoChuDe = {};
+        for (let tenChuDe in diemUuTien) {
+            theoChuDe[tenChuDe] = 0;
+        }
+ 
+        danhSachBaiDang.forEach(function(bai) {
+            if (bai === baiDangHienTai) return;
+            theoChuDe[bai.chuDe] += diemUuTien[bai.chuDe];
+            tong += diemUuTien[bai.chuDe];
+        });
+ 
+        let ketQua = {};
+        for (let tenChuDe in theoChuDe) {
+            ketQua[tenChuDe] = tong > 0 ? Math.round((theoChuDe[tenChuDe] / tong) * 100) : 0;
+        }
+        return ketQua;
+    }
+ 
+    function hienThiBaiDang(bai) {
+        document.getElementById('ten-nguoi-dang').textContent = bai.nguoiDang;
+        document.getElementById('noi-dung-bai-dang').textContent = bai.noiDung;
+    }
+ 
+    // Chuyển sang bài mới. giuThongBao = true thì giữ lại dòng thông báo của thao tác trước
+    function chuyenSangBaiMoi(giuThongBao) {
+        if (daKetThuc) return;
+ 
+        // Hủy hẹn giờ "Bỏ qua" (nếu còn) để không bị chuyển bài 2 lần
+        clearTimeout(timerBoQua);
+        timerBoQua = null;
+ 
+        // Chuyển bài mà không tương tác gì cũng là một tín hiệu: "lướt qua"
+        if (!daTuongTacBaiNay) {
+            ghiNhatKy(baiDangHienTai, 'lướt qua', 0);
+        }
+ 
+        baiDangHienTai = chonBaiDangNgauNhien(baiDangHienTai);
+        hienThiBaiDang(baiDangHienTai);
+        daTuongTacBaiNay = false;
+ 
+        if (!giuThongBao) {
+            document.getElementById('thong-bao').textContent = '';
+        }
+ 
+        ghiNhanBaiDaXem(baiDangHienTai);
+        capNhatBangDiem();
+        capNhatTrangThaiNut();
+    }
+ 
+    // ===== XỬ LÝ TƯƠNG TÁC =====
+    function xuLyTuongTac(soDiem, tenHanhDong) {
+        if (daTuongTacBaiNay) {
+            document.getElementById('thong-bao').textContent =
+                'Bạn đã tương tác với bài này rồi! Bấm "Nội dung tiếp theo" để xem bài mới nhé.';
+            return false;
+        }
+ 
+        let chuDeHienTai = baiDangHienTai.chuDe;
+        diemUuTien[chuDeHienTai] = Math.max(1, diemUuTien[chuDeHienTai] + soDiem);
+ 
+        let thongBao = `Bạn đã ${tenHanhDong} bài viết này. Điểm ưu tiên "${chuDeHienTai}" ${dauCuaDiem(soDiem)}${soDiem}!`;
+        if (daKetThuc) {
+            thongBao += ' Em đã xem đủ 10 bài, hãy xem tổng kết bên cạnh nhé!';
+        }
+        document.getElementById('thong-bao').textContent = thongBao;
+ 
+        capNhatBangDiem();
+ 
+        // Ghi lại thao tác này vào "sổ lịch sử"
+        ghiNhatKy(baiDangHienTai, tenHanhDong, soDiem);
+        daTuongTacBaiNay = true;
+        // Nếu đang mở khung lịch sử thì cập nhật luôn
+        if (document.getElementById('khu-vuc-lich-su').style.display === 'block') {
+            veLichSu();
+        }
+        return true;
+    }
+ 
+    document.getElementById('nut-xem').addEventListener('click', function() {
+        xuLyTuongTac(1, 'xem');
+    });
+ 
+    document.getElementById('nut-thich').addEventListener('click', function() {
+        xuLyTuongTac(3, 'thích');
+    });
+ 
+    document.getElementById('nut-bo-qua').addEventListener('click', function() {
+        let thanhCong = xuLyTuongTac(-1, 'bỏ qua');
+ 
+        // Hết lượt thì không tự chuyển bài nữa
+        if (thanhCong && !daKetThuc) {
+            timerBoQua = setTimeout(function() {
+                timerBoQua = null;
+                chuyenSangBaiMoi(true);
+            }, THOI_GIAN_CHO_BO_QUA);
+            capNhatTrangThaiNut(); // khóa nút trong lúc chờ
+        }
+    });
+ 
+    document.getElementById('nut-chia-se').addEventListener('click', function() {
+        xuLyTuongTac(4, 'chia sẻ');
+    });
+ 
+    document.getElementById('nut-tiep-theo').addEventListener('click', function() {
+        chuyenSangBaiMoi(false);
+    });
+ 
+    // ===== BẢNG ĐIỂM =====
+    function capNhatBangDiem() {
+        let noiDungHtml = '';
+        let diemCaoNhat = Math.max(...Object.values(diemUuTien));
+        let xacSuat = tinhXacSuatChuDe();
+ 
+        for (let tenChuDe in diemUuTien) {
+            let diem = diemUuTien[tenChuDe];
+            let phanTram = (diem / diemCaoNhat) * 100;
+            noiDungHtml += `
+                <div class="thanh-chu-de">
+                    ${tenChuDe}: ${diem} điểm <span class="xac-suat">(cơ hội xuất hiện ~${xacSuat[tenChuDe]}%)</span>
+                    <div class="nen-thanh-diem">
+                        <div class="thanh-diem" style="width: ${phanTram}%"></div>
+                    </div>
+                </div>
+            `;
+        }
+        document.getElementById('danh-sach-diem').innerHTML = noiDungHtml;
+    }
+ 
+    // ===== NÚT LÀM LẠI =====
+    document.getElementById('nut-lam-lai').addEventListener('click', function() {
+        location.reload();
+    });
+ 
+    // ===== NÚT XEM LỊCH SỬ =====
+    function veLichSu() {
+        let khuVuc = document.getElementById('khu-vuc-lich-su');
+        let noiDungHtml = '<strong>Nhật ký thao tác:</strong><br>';
+        layNhatKy().forEach(function(banGhi, chiSo) {
+            noiDungHtml += `${chiSo + 1}. ${vietHoaDau(banGhi.hanhDong)} bài "${banGhi.chuDe}" → ${dauCuaDiem(banGhi.diem)}${banGhi.diem} điểm<br>`;
+        });
+        khuVuc.innerHTML = noiDungHtml;
+        khuVuc.style.display = 'block';
+    }
+ 
+    document.getElementById('nut-xem-lich-su').addEventListener('click', function() {
+        let khuVuc = document.getElementById('khu-vuc-lich-su');
+ 
+        // Nếu đang hiện thì ẩn đi (bấm lần 2 để đóng lại), và ngược lại
+        if (khuVuc.style.display === 'block') {
+            khuVuc.style.display = 'none';
+            return;
+        }
+        veLichSu();
+    });
+ 
+    // ===== NÚT TẢI KẾT QUẢ =====
+    document.getElementById('nut-tai-ket-qua').addEventListener('click', function() {
+        // Bước 1: Ghép toàn bộ dữ liệu thành 1 đoạn văn bản dài
+        let noiDung = 'KẾT QUẢ - EM LÀM CHỦ THUẬT TOÁN\n';
+        noiDung += '================================\n\n';
+ 
+        noiDung += 'ĐIỂM ƯU TIÊN CUỐI CÙNG:\n';
+        for (let tenChuDe in diemUuTien) {
+            noiDung += `- ${tenChuDe}: ${diemUuTien[tenChuDe]} điểm\n`;
+        }
+ 
+        noiDung += '\nSỐ BÀI ĐÃ XEM THEO CHỦ ĐỀ:\n';
+        for (let tenChuDe in lichSuXemChuDe) {
+            noiDung += `- ${tenChuDe}: ${lichSuXemChuDe[tenChuDe]} bài\n`;
+        }
+ 
+        noiDung += '\nNHẬT KÝ THAO TÁC:\n';
+        layNhatKy().forEach(function(banGhi, chiSo) {
+            noiDung += `${chiSo + 1}. ${vietHoaDau(banGhi.hanhDong)} bài "${banGhi.chuDe}" -> ${dauCuaDiem(banGhi.diem)}${banGhi.diem} điểm\n`;
+        });
+ 
+        // Bước 2: Gói văn bản thành "file ảo" (Blob). Thêm BOM + charset UTF-8 để tiếng Việt không bị lỗi font
+        let file = new Blob(['\uFEFF' + noiDung], { type: 'text/plain;charset=utf-8' });
+ 
+        // Bước 3: Tạo link ẩn trỏ tới file ảo rồi "tự bấm" để tải xuống
+        let duongDan = URL.createObjectURL(file);
+        let duongLink = document.createElement('a');
+        duongLink.href = duongDan;
+        duongLink.download = 'ket-qua-thuat-toan.txt';
+        document.body.appendChild(duongLink);
+        duongLink.click();
+        document.body.removeChild(duongLink);
+ 
+        // Giải phóng bộ nhớ sau khi trình duyệt đã bắt đầu tải
+        setTimeout(function() {
+            URL.revokeObjectURL(duongDan);
+        }, 1000);
+    });
+ 
+    // ===== KHỞI TẠO BÀI ĐẦU TIÊN =====
+    baiDangHienTai = chonBaiDangNgauNhien(null);
+    hienThiBaiDang(baiDangHienTai);
+    ghiNhanBaiDaXem(baiDangHienTai);
+    capNhatBangDiem();
+    capNhatTrangThaiNut();
+</script>
+</body>
+</html>
