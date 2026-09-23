@@ -255,7 +255,8 @@
     let baiDangHienTai = null;
     let daTuongTacBaiNay = false;
     let daKetThuc = false;      // true khi đã hiện đủ SO_BAI_TOI_DA bài
-    let timerBoQua = null;      // lưu bộ hẹn giờ của nút "Bỏ qua" để có thể hủy
+    let timerBoQua = null; 
+    let thaoTacBaiHienTai  // ghi nhớ thao tác vừa làm trên bài đang xem  
  
     // ===== HÀM TIỆN ÍCH =====
     function vietHoaDau(chuoi) {
@@ -312,11 +313,16 @@
  
     // ===== CHỌN & HIỂN THỊ BÀI ĐĂNG =====
     // Chọn ngẫu nhiên theo trọng số điểm, không chọn lại đúng bài đang hiển thị
-    function chonBaiDangNgauNhien(baiLoaiTru) {
+    function chonBaiDangNgauNhien(baiLoaiTru, chuDeBatBuoc, chuDeBatBuoc, chuDeCam) {
         let ungVien = danhSachBaiDang.filter(function(bai) {
-            return bai !== baiLoaiTru;
+            if (bai === baiLoaiTru) return false;
+            if (chuDeBatBuoc && bai.chuDe !== chuDeBatBuoc) return false;
+            if (chuDeCam && bai.chuDe === chuDeCam) return false;
+           return true;
         });
- 
+        if (ungVien.length === 0){
+            ungVien = danhSachBaiDang.filter(function(bai) {return bai !== baiLoaiTru});
+        }
         let tongDiem = 0;
         ungVien.forEach(function(bai) {
             tongDiem += diemUuTien[bai.chuDe];
@@ -372,8 +378,10 @@
         if (!daTuongTacBaiNay) {
             ghiNhatKy(baiDangHienTai, 'lướt qua', 0);
         }
- 
-        baiDangHienTai = chonBaiDangNgauNhien(baiDangHienTai);
+        let chuDeBatBuoc = (thaoTacBaiHienTai === 'thích') ? baiDangHienTai.chuDe : null;
+        let chuDeCam = (thaoTacBaiHienTai === 'bỏ qua') ? baiDangHienTai.chuDe : null;
+        thaoTacBaiHienTai = null;
+        baiDangHienTai = chonBaiDangNgauNhien(baiDangHienTai, chuDeBatBuoc, chuDeCam);
         hienThiBaiDang(baiDangHienTai);
         daTuongTacBaiNay = false;
  
@@ -409,6 +417,7 @@
         ghiNhatKy(baiDangHienTai, tenHanhDong, soDiem);
         daTuongTacBaiNay = true;
         // Nếu đang mở khung lịch sử thì cập nhật luôn
+        thaoTacBaiHienTai = tenHanhDong;
         if (document.getElementById('khu-vuc-lich-su').style.display === 'block') {
             veLichSu();
         }
