@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Em làm chủ thuật toán</title>
+    <title>Bạn làm chủ thuật toán</title>
     <style>
     /* Định dạng chung cho toàn trang */
     body {
@@ -159,7 +159,7 @@
 </head>
 <body>
  
-    <h1>Em làm chủ thuật toán</h1>
+    <h1>Bạn làm chủ thuật toán</h1>
     <p>Khám phá cách mạng xã hội "hiểu" sở thích của bạn!</p>
  
     <div class="bo-cuc">
@@ -191,10 +191,10 @@
             </div>
  
             <div id="tong-ket" style="display: none;">
-                <h4>📊 Sau 10 bài, đây là số bài em đã xem theo từng chủ đề:</h4>
+                <h4>📊 Sau 10 bài, đây là số bài bạn đã xem theo từng chủ đề:</h4>
                 <div id="chi-tiet-tong-ket"></div>
-                <p><strong>Thao tác của em đã ảnh hưởng đến nội dung được đề xuất như thế nào?</strong></p>
-                <p style="font-style: italic; color: #555;">"Mỗi thao tác đều tạo tín hiệu. Được đề xuất nhiều không có nghĩa là đúng hoặc đáng tin."</p>
+                <p><strong>Thao tác của bạn đã ảnh hưởng đến nội dung được đề xuất như thế nào?</strong></p>
+                <p style="font-style: italic; color: #555;">"Bạn chọn thích, xem hoặc chia sẻ chủ đề nào thì câu tiếp theo sẽ có chủ đề giống hoặc tương tự"</p>
                 <button id="nut-xem-lich-su">🕘 Xem lịch sử</button>
                 <button id="nut-tai-ket-qua">💾 Tải kết quả</button>
                 <button id="nut-lam-lai">🔄 Làm lại</button>
@@ -284,7 +284,7 @@
             daKetThuc = true;
             hienThiTongKet();
             document.getElementById('thong-bao').textContent =
-                'Đây là bài cuối cùng. Em vẫn có thể tương tác với bài này, rồi xem tổng kết bên cạnh nhé!';
+                'Đây là bài cuối cùng. Bạn vẫn có thể tương tác với bài này, rồi xem tổng kết bên cạnh nhé!';
         }
     }
  
@@ -407,7 +407,7 @@
  
         let thongBao = `Bạn đã ${tenHanhDong} bài viết này. Điểm ưu tiên "${chuDeHienTai}" ${dauCuaDiem(soDiem)}${soDiem}!`;
         if (daKetThuc) {
-            thongBao += ' Em đã xem đủ 10 bài, hãy xem tổng kết bên cạnh nhé!';
+            thongBao += ' Bạn đã xem đủ 10 bài, hãy xem tổng kết bên cạnh nhé!';
         }
         document.getElementById('thong-bao').textContent = thongBao;
  
@@ -504,7 +504,7 @@
     // ===== NÚT TẢI KẾT QUẢ =====
     document.getElementById('nut-tai-ket-qua').addEventListener('click', function() {
         // Bước 1: Ghép toàn bộ dữ liệu thành 1 đoạn văn bản dài
-        let noiDung = 'KẾT QUẢ - EM LÀM CHỦ THUẬT TOÁN\n';
+        let noiDung = 'KẾT QUẢ - BẠN LÀM CHỦ THUẬT TOÁN\n';
         noiDung += '================================\n\n';
  
         noiDung += 'ĐIỂM ƯU TIÊN CUỐI CÙNG:\n';
