@@ -313,7 +313,7 @@
  
     // ===== CHỌN & HIỂN THỊ BÀI ĐĂNG =====
     // Chọn ngẫu nhiên theo trọng số điểm, không chọn lại đúng bài đang hiển thị
-    function chonBaiDangNgauNhien(baiLoaiTru, chuDeBatBuoc, chuDeBatBuoc, chuDeCam) {
+    function chonBaiDangNgauNhien(baiLoaiTru, chuDeBatBuoc, chuDeCam) {
         let ungVien = danhSachBaiDang.filter(function(bai) {
             if (bai === baiLoaiTru) return false;
             if (chuDeBatBuoc && bai.chuDe !== chuDeBatBuoc) return false;
