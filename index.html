@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bạn Làm Chủ Thuật Toán</title>
+    <title>Bạn làm chủ thuật toán</title>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -65,7 +65,7 @@
         .badge-num {
             background: linear-gradient(135deg, var(--primary-blue), var(--accent-cyan));
             color: white; font-weight: 700; padding: 4px 12px;
-            border-radius: 20px; font-size: 0.85rem;
+            border-radius: 20px; font-size: 0.85rem; white-space: nowrap;
         }
         .section-title { font-size: 1.15rem; font-weight: 700; color: #0f172a; }
         .target-box {
@@ -126,6 +126,8 @@
             background: white; padding: 12px 15px; border-radius: var(--radius-md);
             border: 1px solid var(--border-light); font-size: 0.85rem;
         }
+        .p5-clock { font-size: 2.6rem; font-weight: 800; color: var(--primary-blue); text-align: center; letter-spacing: 2px; }
+        .dimmed { opacity: 0.45; pointer-events: none; }
     </style>
 </head>
 <body>
@@ -133,15 +135,15 @@
 <div class="container">
 
     <header>
-        <h1 class="main-title">BẠN LÀM CHỦ THUẬT TOÁN</h1>
-        <p class="subtitle">Công cụ thực hành bộ kỹ năng định hướng & làm chủ mạng xã hội</p>
+        <h1 class="main-title">Bạn làm chủ thuật toán</h1>
+        <p class="subtitle">Công cụ thực hành bộ kỹ năng định hướng và làm chủ mạng xã hội</p>
     </header>
 
     <!-- ================= PHẦN I ================= -->
     <section class="section-card" id="part1">
         <div class="section-header">
-            <span class="badge-num">PHẦN I</span>
-            <h2 class="section-title">Nhận Biết Cơ Chế Đề Xuất Của Thuật Toán</h2>
+            <span class="badge-num">Phần I</span>
+            <h2 class="section-title">Nhận biết cơ chế đề xuất của thuật toán</h2>
         </div>
         <div class="target-box">
             🎯 <strong>Mục tiêu:</strong> Nhận biết các thao tác xem, thích, chia sẻ và bỏ qua tạo ra tín hiệu ảnh hưởng đến nội dung được đề xuất.
@@ -162,7 +164,7 @@
             <button class="btn btn-outline btn-p1-act" id="p1-btn-xem" onclick="interactP1('xem')">👁️ Xem (+1)</button>
             <button class="btn btn-primary btn-p1-act" id="p1-btn-thich" onclick="interactP1('thich')">❤️ Thích (+3)</button>
             <button class="btn btn-success btn-p1-act" id="p1-btn-chiase" onclick="interactP1('chiase')">↗ Chia sẻ (+4)</button>
-            <button class="btn btn-warning btn-p1-act" id="p1-btn-boqua" onclick="interactP1('boqua')">⏭️️ Bỏ qua (Trừ điểm)</button>
+            <button class="btn btn-warning btn-p1-act" id="p1-btn-boqua" onclick="interactP1('boqua')">⏭️ Bỏ qua (trừ điểm)</button>
 
             <button class="btn btn-primary" id="btn-p1-next" style="margin-left: auto; display: none; background: #0284c7;" onclick="nextPostP1()">Nội dung tiếp theo ➔</button>
         </div>
@@ -204,8 +206,8 @@
     <!-- ================= PHẦN II ================= -->
     <section class="section-card" id="part2">
         <div class="section-header">
-            <span class="badge-num">PHẦN II</span>
-            <h2 class="section-title">Kiểm Chứng Thông Tin Do Thuật Toán Đề Xuất</h2>
+            <span class="badge-num">Phần II</span>
+            <h2 class="section-title">Kiểm chứng thông tin do thuật toán đề xuất</h2>
         </div>
         <div class="target-box">
             🎯 <strong>Mục tiêu:</strong> Biết kiểm tra nguồn, thời gian, bằng chứng và đối chiếu trước khi tin hoặc chia sẻ.
@@ -254,8 +256,25 @@
         <button class="btn btn-primary" id="p2-next" style="display:none;margin-top:12px;" onclick="nextP2()">Tình huống tiếp theo ➔</button>
 
         <div class="btn-group" style="margin-top: 15px;">
-            <button class="btn btn-outline" onclick="resetP2State()">🔄 Làm lại Phần II</button>
+            <button class="btn btn-outline" onclick="resetP2State()">🔄 Làm lại phần II</button>
             <button class="btn btn-outline" onclick="downloadP2()">📥 Tải kết quả</button>
+        </div>
+
+        <!-- Quy trình 3 bước: câu chốt của phần II -->
+        <hr style="margin: 20px 0; border: none; border-top: 1px solid var(--border-light);">
+        <h4 style="font-size: 0.9rem; margin-bottom: 10px;">🛑 Quy trình 3 bước xử lý tin tức:</h4>
+        <div class="info-card-grid">
+            <div class="info-item">
+                <strong>1. Dừng:</strong><br> Chưa vội tin, chưa vội bấm chia sẻ ngay lập tức.
+            </div>
+            <div class="info-item">
+                <strong>2. Kiểm chứng:</strong><br> Ai đăng? Đăng khi nào? Ở đâu? Căn cứ gốc ở đâu? Cách viết có giật gân, gây sốc không?
+            </div>
+            <div class="info-item">
+                <strong>3. Đối chiếu và quyết định:</strong><br>
+                • Xác nhận đúng ➔ Chia sẻ kèm nguồn.<br>
+                • Chưa đủ căn cứ / Xác nhận sai ➔ Không chia sẻ, không lan truyền.
+            </div>
         </div>
 
         <div style="margin-top: 15px; font-size: 0.85rem; background: #fffbe0; padding: 10px; border-radius: 8px; border: 1px solid #ffe58f;">
@@ -266,8 +285,8 @@
     <!-- ================= PHẦN III ================= -->
     <section class="section-card" id="part3">
         <div class="section-header">
-            <span class="badge-num">PHẦN III</span>
-            <h2 class="section-title">Cài Đặt Làm Mới & Điều Chỉnh Bảng Tin</h2>
+            <span class="badge-num">Phần III</span>
+            <h2 class="section-title">Cài đặt làm mới và điều chỉnh bảng tin</h2>
         </div>
         <div style="font-size:0.85rem;font-weight:700;color:var(--primary-blue);margin-bottom:8px;" id="p3-counter"></div>
         <div class="target-box" id="p3-scenario"></div>
@@ -286,7 +305,7 @@
         <div class="feedback-msg" id="p3-feedback"></div>
 
         <div style="margin-top:15px;">
-            <button class="btn btn-success" style="width:100%;justify-content:center;font-size:0.95rem;" onclick="generateNewFeedP3()">📰 Bấm để "Tạo & Xem Bảng Tin Mới" (10 Bài)</button>
+            <button class="btn btn-success" style="width:100%;justify-content:center;font-size:0.95rem;" onclick="generateNewFeedP3()">📰 Bấm để “Tạo và xem bảng tin mới” (10 bài)</button>
         </div>
 
         <div id="p3-results-area" style="display:none;margin-top:20px;">
@@ -304,32 +323,31 @@
         </div>
 
         <div class="btn-group" style="margin-top:15px;">
-            <button class="btn btn-outline" onclick="resetP3()">🔄 Làm lại Phần III</button>
+            <button class="btn btn-outline" onclick="resetP3()">🔄 Làm lại phần III</button>
             <button class="btn btn-outline" onclick="downloadP3()">📥 Tải kết quả</button>
         </div>
 
         <div style="margin-top:15px;font-size:0.85rem;background:#fffbe0;padding:10px;border-radius:8px;border:1px solid #ffe58f;">
-            📌 <strong>Thông điệp:</strong> “Chủ động tìm kiếm và cài đặt giúp bạn thoát khỏi 'bẫy' nội dung rập khuôn.”
+            📌 <strong>Thông điệp:</strong> “Chủ động tìm kiếm và cài đặt giúp bạn thoát khỏi ‘bẫy’ nội dung rập khuôn.”
         </div>
     </section>
 
-    <!-- ================= PHẦN IV (ĐÃ SỬA MỚI) ================= -->
+    <!-- ================= PHẦN IV ================= -->
     <section class="section-card" id="part4">
         <div class="section-header">
-            <span class="badge-num">PHẦN IV</span>
-            <h2 class="section-title">Phá Vỡ "Bong Bóng Thông Tin" (Filter Bubble)</h2>
+            <span class="badge-num">Phần IV</span>
+            <h2 class="section-title">Phá vỡ “bong bóng thông tin” (Filter Bubble)</h2>
         </div>
         <div class="target-box">
-            🎯 <strong>Mục tiêu:</strong> Vượt qua sự rập khuôn của thuật toán bằng cách trải qua 4 bước hành động thực tế để tiếp cận góc nhìn đa chiều.
+            🎯 <strong>Mục tiêu:</strong> Vượt qua sự rập khuôn của thuật toán bằng 4 bước hành động thực tế, sau đó nhận bản đánh giá kết quả theo 5 tiêu chí.
         </div>
 
         <div style="background: white; padding: 15px; border-radius: 12px; border: 1px solid var(--border-light); margin-bottom: 15px;">
             <span class="post-tag" style="background:#fef3c7; color:#d97706;">📌 Tình huống thực hành</span>
-            <div class="post-title" style="font-size: 1rem; margin-top: 5px;">Chủ đề: "Có nên cấm hoàn toàn học sinh mang điện thoại đến trường không?"</div>
-            <div class="post-content">Bảng tin của bạn đang tràn ngập các video ngắn ủng hộ việc cấm tuyệt đối vì cho rằng điện thoại chỉ gây mất tập trung. Hãy vượt qua "bong bóng thông tin" này qua từng bước sau!</div>
+            <div class="post-title" style="font-size: 1rem; margin-top: 5px;">Chủ đề: “Có nên cấm hoàn toàn học sinh mang điện thoại đến trường không?”</div>
+            <div class="post-content">Bảng tin của bạn đang tràn ngập các video ngắn ủng hộ việc cấm tuyệt đối vì cho rằng điện thoại chỉ gây mất tập trung. Hãy vượt qua “bong bóng thông tin” này qua từng bước sau!</div>
         </div>
 
-        <!-- Thanh tiến trình phần 4 -->
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
             <span style="font-size: 0.85rem; font-weight: 700; color: var(--primary-blue);" id="p4-step-indicator">Bước 1 / 4</span>
             <span style="font-size: 0.8rem; color: var(--text-muted);" id="p4-progress-label">25% hoàn thành</span>
@@ -338,10 +356,7 @@
             <div class="progress-bar-fill" id="p4-progress-bar" style="width: 25%;"></div>
         </div>
 
-        <!-- Khung hiển thị nội dung từng bước -->
-        <div class="post-box" id="p4-step-container" style="border-left: 4px solid var(--primary-blue); background: #f8fafc;">
-            <!-- Nội dung bước sẽ được render bằng JS -->
-        </div>
+        <div class="post-box" id="p4-step-container" style="border-left: 4px solid var(--primary-blue); background: #f8fafc;"></div>
 
         <div class="btn-group" style="justify-content: space-between;">
             <button class="btn btn-outline" id="p4-btn-prev" onclick="changeP4Step(-1)" disabled>⬅️ Bước trước</button>
@@ -349,7 +364,7 @@
         </div>
 
         <div class="btn-group" style="margin-top: 15px;">
-            <button class="btn btn-outline" onclick="resetP4()">🔄 Làm lại Phần IV</button>
+            <button class="btn btn-outline" onclick="resetP4()">🔄 Làm lại phần IV</button>
             <button class="btn btn-outline" onclick="downloadP4()">📥 Tải kết quả</button>
         </div>
 
@@ -361,45 +376,74 @@
     <!-- ================= PHẦN V ================= -->
     <section class="section-card" id="part5">
         <div class="section-header">
-            <span class="badge-num">PHẦN V</span>
-            <h2 class="section-title">Dừng - Kiểm Chứng & Cài Đặt Giờ Sử Dụng</h2>
+            <span class="badge-num">Phần V</span>
+            <h2 class="section-title">Cài đặt giờ sử dụng</h2>
         </div>
         <div class="target-box">
-            🎯 <strong>Mục tiêu:</strong> Làm chủ quy trình ra quyết định chia sẻ tin tức và quản lý thời gian sử dụng thiết bị lành mạnh.
+            🎯 <strong>Mục tiêu:</strong> Biết đặt giới hạn thời gian trước khi lướt mạng và dừng đúng giờ, dù thuật toán vẫn liên tục tự phát nội dung tiếp theo.
         </div>
 
-        <h4 style="font-size: 0.9rem; margin-bottom: 10px;">🛑 Quy trình 3 bước xử lý tin tức:</h4>
-        <div class="info-card-grid">
-            <div class="info-item">
-                <strong>1. DỪNG:</strong><br> Chưa vội tin, chưa vội bấm chia sẻ ngay lập tức.
-            </div>
-            <div class="info-item">
-                <strong>2. KIỂM CHỨNG:</strong><br> Ai đăng? Đăng khi nào? Ở đâu? Căn cứ gốc ở đâu? Cách viết có giật gân, gây sốc không?
-            </div>
-            <div class="info-item">
-                <strong>3. ĐỐI CHIẾU & QUYẾT ĐỊNH:</strong><br>
-                • Xác nhận đúng ➔ Chia sẻ kèm nguồn.<br>
-                • Chưa đủ căn cứ / Xác nhận sai ➔ Không chia sẻ, không lan truyền.
+        <div class="post-box">
+            <span class="post-tag" style="background:#fef3c7; color:#d97706;">📌 Tình huống thực hành</span>
+            <div class="post-title">Bạn mở mạng xã hội chỉ để xem một nội dung ngắn…</div>
+            <div class="post-content">Thuật toán sẽ tự động phát nội dung kế tiếp để giữ bạn ở lại. Hãy cài đặt giờ sử dụng trước khi bắt đầu, rồi quan sát điều gì xảy ra khi hết giờ.</div>
+        </div>
+
+        <p style="font-weight: 600; font-size: 0.88rem;">1. Chọn loại nội dung bạn sẽ xem:</p>
+        <div class="btn-group" style="margin-top: 5px;">
+            <button class="btn btn-primary p5-type-btn" id="p5-type-video" onclick="p5PickType('video')">🎬 Video ngắn</button>
+            <button class="btn btn-outline p5-type-btn" id="p5-type-article" onclick="p5PickType('article')">📰 Bài viết</button>
+        </div>
+
+        <p style="font-weight: 600; font-size: 0.88rem;">2. Cài đặt thời gian sử dụng:</p>
+        <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 6px;">⚡ Nhóm nhanh</div>
+        <div class="btn-group" style="margin: 5px 0 10px;">
+            <button class="btn btn-outline p5-time-btn" id="p5-time-2" onclick="p5PickTime(2)">2 phút</button>
+            <button class="btn btn-outline p5-time-btn" id="p5-time-5" onclick="p5PickTime(5)">5 phút</button>
+            <button class="btn btn-outline p5-time-btn" id="p5-time-10" onclick="p5PickTime(10)">10 phút</button>
+        </div>
+        <div style="font-size: 0.8rem; color: var(--text-muted);">🕐 Nhóm thông thường</div>
+        <div class="btn-group" style="margin: 5px 0 10px;">
+            <button class="btn btn-outline p5-time-btn" id="p5-time-30" onclick="p5PickTime(30)">30 phút</button>
+            <button class="btn btn-outline p5-time-btn" id="p5-time-60" onclick="p5PickTime(60)">60 phút</button>
+        </div>
+        <label style="font-size: 0.82rem; color: var(--text-muted); display: block; margin-bottom: 10px;">
+            <input type="checkbox" id="p5-fast"> ⚡ Chế độ thử nhanh (1 giây thật = 1 phút mô phỏng, dùng khi trình chiếu trên lớp)
+        </label>
+
+        <div class="chart-container" style="margin-top: 10px;">
+            <div class="p5-clock" id="p5-clock">--:--</div>
+            <div style="text-align: center; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 10px;" id="p5-status">Hãy chọn thời gian rồi bấm “Bắt đầu lướt”.</div>
+
+            <div class="post-box" id="p5-player" style="margin-bottom: 8px;">
+                <span class="post-tag" id="p5-item-tag">🎬 Video ngắn</span>
+                <div class="post-title" id="p5-item-title"></div>
+                <div class="post-content" id="p5-item-desc"></div>
+                <div class="progress-bar-box" style="margin: 12px 0 4px;"><div class="progress-bar-fill" id="p5-item-progress"></div></div>
+                <div style="font-size: 0.78rem; color: var(--text-muted);" id="p5-item-counter">Nội dung tiếp theo sẽ tự động phát…</div>
             </div>
         </div>
 
-        <hr style="margin: 20px 0; border: none; border-top: 1px solid var(--border-light);">
+        <div class="btn-group">
+            <button class="btn btn-success" id="p5-btn-start" onclick="p5Start()" disabled>▶️ Bắt đầu lướt</button>
+            <button class="btn btn-warning" id="p5-btn-pause" onclick="p5TogglePause()" disabled>⏸️ Tạm dừng</button>
+            <button class="btn btn-danger" id="p5-btn-stop" onclick="p5StopEarly()" disabled>⏹️ Dừng sớm</button>
+        </div>
 
-        <h4 style="font-size: 0.9rem; margin-bottom: 10px;">⏳ Cài Đặt Giờ Sử Dụng Mạng Xã Hội Lành Mạnh:</h4>
-        <div style="background: white; padding: 15px; border-radius: 12px; border: 1px solid var(--border-light);">
-            <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
-                <div>
-                    <label style="font-size: 0.85rem; font-weight: 600;">Mục tiêu sử dụng/ngày:</label>
-                    <select id="p5-time-target" style="width: auto; margin: 0 0 0 10px;">
-                        <option value="30">30 phút</option>
-                        <option value="45">45 phút</option>
-                        <option value="60" selected>60 phút (Khuyên dùng)</option>
-                        <option value="90">90 phút</option>
-                    </select>
-                </div>
-                <button class="btn btn-success" onclick="setP5TimeGoal()">Lưu mục tiêu giờ</button>
+        <div id="p5-timeup" class="feedback-msg" style="display:none; background:#fef2f2; border-color:#fecaca; color:#991b1b;">
+            <strong style="font-size: 1.05rem;">⏰ Hết giờ!</strong><br>
+            <span id="p5-timeup-text"></span>
+            <div class="btn-group" style="margin-bottom: 0;">
+                <button class="btn btn-success" onclick="p5Finish('Dừng đúng giờ')">✅ Dừng lại và nghỉ ngơi</button>
+                <button class="btn btn-outline" onclick="p5Extend()">➕ Xem thêm 5 phút</button>
             </div>
-            <p id="p5-time-msg" style="font-size: 0.85rem; color: #0284c7; font-weight: 600; margin-top: 10px;"></p>
+        </div>
+
+        <div id="p5-result" class="feedback-msg" style="display:none; background:#e0f2fe; border-color:#7dd3fc; color:#0369a1;"></div>
+
+        <div class="btn-group" style="margin-top: 15px;">
+            <button class="btn btn-outline" onclick="p5Reset()">🔄 Làm lại phần V</button>
+            <button class="btn btn-outline" onclick="downloadP5()">📥 Tải kết quả</button>
         </div>
 
         <div style="margin-top: 15px; font-size: 0.85rem; background: #fffbe0; padding: 10px; border-radius: 8px; border: 1px solid #ffe58f;">
@@ -410,6 +454,16 @@
 </div>
 
 <script>
+    function esc(s) {
+        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+    function wordCount(s) { s = (s || '').trim(); return s ? s.split(/\s+/).length : 0; }
+    function saveTextFile(name, text) {
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(new Blob([text], { type: 'text/plain;charset=utf-8' }));
+        a.download = name; a.click();
+    }
+
     /* =============================================================== */
     /* LOGIC PHẦN I                                                    */
     /* =============================================================== */
@@ -422,7 +476,7 @@
             { title: 'Cách đọc sách hiệu quả gấp 2 lần', content: 'Kỹ thuật đọc lướt và ghi chú sơ đồ tư duy Mindmap mang lại kết quả cao...' }
         ],
         'Thể thao': [
-            { title: '5 BÀI TẬP STRETCHING GIÚP TĂNG CHIỀU CAO', content: 'Tập luyện 15 phút mỗi sáng giúp cơ thể dẻo dai và tràn đầy năng lượng...' },
+            { title: '5 bài tập stretching giúp tăng chiều cao', content: 'Tập luyện 15 phút mỗi sáng giúp cơ thể dẻo dai và tràn đầy năng lượng...' },
             { title: 'Chế độ dinh dưỡng cho người vận động', content: 'Bổ sung nước, protein đúng cách để cơ thể phục hồi nhanh chóng...' }
         ],
         'Âm nhạc': [
@@ -431,7 +485,7 @@
         ],
         'Trò chơi': [
             { title: 'Highlight trận chung kết giải đấu E-Sports', content: 'Những pha xử lý xuất thần của các tuyển thủ hàng đầu thế giới...' },
-            { title: 'Top 5 Game giải trí cùng bạn bè', content: 'Các tựa game phối hợp nhẹ nhàng và vui nhộn cuối tuần...' }
+            { title: 'Top 5 game giải trí cùng bạn bè', content: 'Các tựa game phối hợp nhẹ nhàng và vui nhộn cuối tuần...' }
         ],
         'Khám phá': [
             { title: 'Bí ẩn đằng sau các hố đen trong vũ trụ', content: 'Các nhà khoa học vừa phát hiện ra tín hiệu mới từ thiên hà xa xôi...' },
@@ -455,7 +509,7 @@
                 <div class="bar-item">
                     <div class="bar-label">
                         <span>${topic}</span>
-                        <span>${score} điểm (Xác suất xuất hiện: ${percent}%)</span>
+                        <span>${score} điểm (xác suất xuất hiện: ${percent}%)</span>
                     </div>
                     <div class="bar-track"><div class="bar-fill" style="width: ${percent}%;"></div></div>
                 </div>`;
@@ -494,7 +548,7 @@
             const others = Object.keys(p1Topics).filter(t => t !== currentP1Topic);
             nextForcedTopic = others[Math.floor(Math.random() * others.length)];
             document.getElementById('p1-feedback').innerHTML =
-                `🚫 Bạn vừa <strong>bỏ qua</strong> chủ đề <strong>${currentP1Topic}</strong>. Bài tiếp theo <strong>chắc chắn KHÔNG</strong> thuộc chủ đề này. Bấm <strong>"Nội dung tiếp theo"</strong>.`;
+                `🚫 Bạn vừa <strong>bỏ qua</strong> chủ đề <strong>${currentP1Topic}</strong>. Bài tiếp theo <strong>chắc chắn KHÔNG</strong> thuộc chủ đề này. Bấm <strong>“Nội dung tiếp theo”</strong>.`;
         } else {
             const map = { xem: ['xem', 1], thich: ['thích', 3], chiase: ['chia sẻ', 4] };
             const [name, delta] = map[action];
@@ -513,7 +567,7 @@
                 msg = `Bài tiếp theo <strong>chắc chắn vẫn là chủ đề này</strong>!`;
             }
             document.getElementById('p1-feedback').innerHTML =
-                `💡 Bạn vừa <strong>${name}</strong> nội dung <strong>${currentP1Topic}</strong> (+${delta} điểm). ${msg} Bấm <strong>"Nội dung tiếp theo"</strong>.`;
+                `💡 Bạn vừa <strong>${name}</strong> nội dung <strong>${currentP1Topic}</strong> (+${delta} điểm). ${msg} Bấm <strong>“Nội dung tiếp theo”</strong>.`;
         }
         renderChartP1();
     }
@@ -548,7 +602,7 @@
     }
 
     function showHistoryP1() {
-        alert(historyP1.length === 0 ? "Lịch sử tương tác đang trống!" : "📜 LỊCH SỬ TƯƠNG TÁC:\n\n" + historyP1.join("\n"));
+        alert(historyP1.length === 0 ? "Lịch sử tương tác đang trống!" : "📜 Lịch sử tương tác:\n\n" + historyP1.join("\n"));
     }
 
     function resetP1() {
@@ -564,12 +618,9 @@
     }
 
     function downloadP1() {
-        let text = "--- KẾT QUẢ PHẦN I ---\nThống kê xuất hiện 10 bài:\n";
+        let text = "--- Kết quả phần I ---\nThống kê xuất hiện 10 bài:\n";
         for (let k in p1OccurrenceCount) text += `- ${k}: ${p1OccurrenceCount[k]} lần\n`;
-        let a = document.createElement("a");
-        a.href = URL.createObjectURL(new Blob([text], { type: "text/plain;charset=utf-8" }));
-        a.download = "Ket_Qua_Phan_1.txt";
-        a.click();
+        saveTextFile("Ket_Qua_Phan_1.txt", text);
     }
 
     /* =============================================================== */
@@ -652,7 +703,7 @@
         document.querySelectorAll('#part2 .p2-lock').forEach(b => b.disabled = true);
         const res = document.getElementById('p2-final-result');
         res.style.display = 'block';
-        res.innerHTML = `<strong>📌 KẾT LUẬN TÌNH HUỐNG NÀY:</strong><br>
+        res.innerHTML = `<strong>📌 Kết luận tình huống này:</strong><br>
             • Nhận định ban đầu: <strong>${p2Initial || 'Chưa chọn'}</strong><br>
             • Kết luận sau kiểm chứng: <strong>${choice}</strong> ${ok ? '✅ Chính xác!' : '❌ Chưa chính xác'}<br>
             • Đáp án hợp lý: <strong>${s.answer}</strong><br><br>💬 ${s.explain}`;
@@ -662,26 +713,27 @@
     }
 
     function nextP2() {
-        if (p2Index < p2Scenarios.length - 1) { 
-            p2Index++; 
-            loadP2(); 
-            return; 
+        if (p2Index < p2Scenarios.length - 1) {
+            p2Index++;
+            loadP2();
+            return;
         }
-        
+
         document.getElementById('p2-next').style.display = 'none';
         document.getElementById('p2-action-section').style.display = 'none';
         document.getElementById('p2-evidence-box').style.display = 'none';
-        
+
         let correctCount = p2Results.filter(r => r && r.ok).length;
-        
-        let summaryHtml = `🏁 <strong>TỔNG KẾT PHẦN II: KIỂM CHỨNG THÔNG TIN</strong><br><br>`;
-        summaryHtml += `Bạn đã hoàn thành xuất sắc qua <strong>${p2Scenarios.length}</strong> tình huống với <strong>${correctCount}/${p2Scenarios.length}</strong> câu đưa ra kết luận chuẩn xác!<br><br>`;
+
+        let summaryHtml = `🏁 <strong>Tổng kết phần II: kiểm chứng thông tin</strong><br><br>`;
+        summaryHtml += `Bạn đã hoàn thành <strong>${p2Scenarios.length}</strong> tình huống với <strong>${correctCount}/${p2Scenarios.length}</strong> kết luận chính xác.<br><br>`;
         summaryHtml += `<ul style="margin-left: 20px; font-size: 0.88rem; line-height: 1.5;">`;
         p2Results.forEach((res, i) => {
-            summaryHtml += `<li><strong>Tình huống ${i+1}:</strong> Ban đầu: <em>${res.initial}</em> | Kết luận: <em>${res.choice}</em> — ${res.ok ? '<span style="color: #10b981; font-weight:600;">Đúng</span>' : '<span style="color: #ef4444; font-weight:600;">Chưa chuẩn</span>'}</li>`;
+            if (!res) return;
+            summaryHtml += `<li><strong>Tình huống ${i + 1}:</strong> Ban đầu: <em>${res.initial}</em> | Kết luận: <em>${res.choice}</em> — ${res.ok ? '<span style="color: #10b981; font-weight:600;">Đúng</span>' : '<span style="color: #ef4444; font-weight:600;">Chưa chuẩn</span>'}</li>`;
         });
-        summaryHtml += `</ul><br>💡 <strong>Lời khuyên:</strong> Hãy luôn duy trì thói quen kiểm tra đa chiều trước khi bấm chia sẻ bất cứ thông tin gì lên mạng xã hội!`;
-        
+        summaryHtml += `</ul><br>💡 <strong>Lời khuyên:</strong> Hãy luôn nhớ quy trình <strong>Dừng – Kiểm chứng – Đối chiếu và quyết định</strong> trước khi bấm chia sẻ bất cứ thông tin gì lên mạng xã hội!`;
+
         const resBox = document.getElementById('p2-final-result');
         resBox.style.display = 'block';
         resBox.innerHTML = summaryHtml;
@@ -690,40 +742,40 @@
     function resetP2State() { p2Index = 0; p2Results = []; loadP2(); }
 
     function downloadP2() {
-        let text = "--- KẾT QUẢ PHẦN II ---\n";
+        let text = "--- Kết quả phần II ---\n";
         p2Scenarios.forEach((s, i) => {
             const r = p2Results[i];
             text += `Tình huống ${i + 1}: ${s.title}\n  Ban đầu: ${r ? r.initial : '-'} | Kết luận: ${r ? r.choice : 'Chưa làm'} | ${r ? (r.ok ? 'Đúng' : 'Chưa đúng') : ''}\n`;
         });
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(new Blob([text], { type: "text/plain;charset=utf-8" }));
-        a.download = "Ket_Qua_Phan_2.txt"; a.click();
+        saveTextFile("Ket_Qua_Phan_2.txt", text);
     }
 
     /* =============================================================== */
     /* LOGIC PHẦN III                                                  */
     /* =============================================================== */
     const p3Colors = ['#ef4444', '#0088ff', '#00e6a8', '#a855f7'];
+    // Mỗi chủ đề: [tên, icon, trọng số ban đầu]; chủ đề đầu tiên là chủ đề đang "tràn ngập"
     const p3Scenarios = [
         { desc: 'Bảng tin đang tràn ngập bài về <strong>Trò chơi (70%)</strong>.',
           cats: [['Trò chơi','🎮',70], ['Học tập','📚',10], ['Khám phá','🚀',10], ['Nghệ thuật','🎨',10]] },
-        { desc: 'Bảng tin đang tràn ngập <strong>Drama & tin đồn người nổi tiếng (70%)</strong>.',
-          cats: [['Drama & tin đồn','🔥',70], ['Khoa học','🔬',10], ['Sách & học tập','📚',10], ['Thể thao','⚽',10]] },
+        { desc: 'Bảng tin đang tràn ngập <strong>Drama và tin đồn người nổi tiếng (70%)</strong>.',
+          cats: [['Drama và tin đồn','🔥',70], ['Khoa học','🔬',10], ['Sách và học tập','📚',10], ['Thể thao','⚽',10]] },
         { desc: 'Bảng tin đang tràn ngập <strong>Quảng cáo mua sắm (70%)</strong>.',
-          cats: [['Mua sắm & quảng cáo','🛍️',70], ['Kỹ năng sống','🌱',10], ['Âm nhạc','🎵',10], ['Khám phá','🚀',10]] },
+          cats: [['Mua sắm và quảng cáo','🛍️',70], ['Kỹ năng sống','🌱',10], ['Âm nhạc','🎵',10], ['Khám phá','🚀',10]] },
         { desc: 'Bảng tin đang tràn ngập <strong>Thử thách giật gân, nguy hiểm (70%)</strong>.',
           cats: [['Thử thách giật gân','⚡',70], ['Học tập','📚',10], ['Thể thao','⚽',10], ['Nghệ thuật','🎨',10]] }
     ];
-    let p3Index = 0, p3Weights = [], p3Answers = [];
+    let p3Index = 0, p3Weights = [], p3Answers = [], p3Touched = false;
 
     function loadP3() {
         const c = p3Scenarios[p3Index].cats;
         p3Weights = c.map(x => x[2]);
+        p3Touched = false;
         document.getElementById('p3-counter').innerText = `Tình huống: ${p3Index + 1} / ${p3Scenarios.length}`;
         document.getElementById('p3-scenario').innerHTML = `🎯 <strong>Tình huống:</strong> ${p3Scenarios[p3Index].desc} Hãy chủ động tìm kiếm từ khóa mới và điều chỉnh gợi ý.`;
         document.getElementById('p3-actions').innerHTML = `
             <button class="btn btn-warning" onclick="adjustP3('less')">🚫 Ít nội dung ${c[0][0]} hơn</button>
-            <button class="btn btn-primary" onclick="adjustP3('prior')">⭐ Ưu tiên: ${c[1][0]} & ${c[2][0]}</button>
+            <button class="btn btn-primary" onclick="adjustP3('prior')">⭐ Ưu tiên: ${c[1][0]} và ${c[2][0]}</button>
             <button class="btn btn-success" onclick="adjustP3('add')">${c[3][1]} Thêm: ${c[3][0]}</button>
             <button class="btn btn-outline" onclick="adjustP3('reset')">🔄 Đặt lại đề xuất ban đầu</button>`;
         document.getElementById('p3-feedback').innerHTML = '💡 <em>Bạn hãy sử dụng các công cụ trên để định hướng lại thuật toán!</em>';
@@ -733,7 +785,7 @@
         document.getElementById('p3-submitted-text').innerText = '';
         const nb = document.getElementById('p3-next');
         nb.style.display = 'inline-flex';
-        nb.innerText = p3Index < p3Scenarios.length - 1 ? 'Tình huống tiếp theo ➔' : '🏁 Hoàn thành Phần III';
+        nb.innerText = p3Index < p3Scenarios.length - 1 ? 'Tình huống tiếp theo ➔' : '🏁 Hoàn thành phần III';
     }
 
     function searchP3Keyword() {
@@ -743,52 +795,80 @@
         let hit = -1;
         cats.forEach((c, i) => { const n = c[0].toLowerCase(); if (i > 0 && (n.includes(kw) || kw.includes(n))) hit = i; });
         const fb = document.getElementById('p3-feedback');
+        p3Touched = true;
         if (hit >= 0) {
-            p3Weights[hit] += 30;
-            fb.innerHTML = `🔍 Bạn tìm kiếm <strong>"${kw}"</strong>. Hệ thống tăng đề xuất chủ đề <strong>${cats[hit][0]}</strong>!`;
+            p3Weights[hit] += 40;
+            fb.innerHTML = `🔍 Bạn tìm kiếm <strong>"${esc(kw)}"</strong>. Hệ thống tăng mạnh đề xuất chủ đề <strong>${cats[hit][0]}</strong>!`;
         } else {
-            for (let i = 1; i < p3Weights.length; i++) p3Weights[i] += 10;
-            fb.innerHTML = `🔍 Bạn tìm kiếm <strong>"${kw}"</strong>. Chưa khớp chủ đề nào, hệ thống tăng nhẹ các chủ đề mới.`;
+            for (let i = 1; i < p3Weights.length; i++) p3Weights[i] += 15;
+            fb.innerHTML = `🔍 Bạn tìm kiếm <strong>"${esc(kw)}"</strong>. Chưa khớp chủ đề nào, hệ thống tăng các chủ đề mới.`;
         }
     }
 
     function adjustP3(type) {
         const c = p3Scenarios[p3Index].cats, fb = document.getElementById('p3-feedback');
         if (type === 'less') {
-            p3Weights[0] = Math.max(10, p3Weights[0] - 40);
-            fb.innerHTML = `🚫 Bạn chọn ít nội dung <strong>${c[0][0]}</strong>. Trọng số giảm mạnh!`;
+            p3Touched = true;
+            p3Weights[0] = 10;
+            fb.innerHTML = `🚫 Bạn chọn ít nội dung <strong>${c[0][0]}</strong>. Trọng số giảm xuống mức thấp nhất!`;
         } else if (type === 'prior') {
-            p3Weights[1] += 30; p3Weights[2] += 30;
+            p3Touched = true;
+            p3Weights[1] += 40; p3Weights[2] += 40;
             fb.innerHTML = `⭐ Bạn ưu tiên: <strong>${c[1][0]}</strong> và <strong>${c[2][0]}</strong>.`;
         } else if (type === 'add') {
-            p3Weights[3] += 35;
+            p3Touched = true;
+            p3Weights[3] += 40;
             fb.innerHTML = `${c[3][1]} Bạn chọn thêm chủ đề: <strong>${c[3][0]}</strong>.`;
         } else {
+            p3Touched = false;
             p3Weights = c.map(x => x[2]);
             fb.innerHTML = `🔄 Đưa bảng tin về ban đầu (70% ${c[0][0]}).`;
         }
+    }
+
+    // Chia đúng 10 bài theo tỷ lệ (phương pháp phần dư lớn nhất) để số bài luôn khớp với biểu đồ
+    function allocateSlots(weights, n) {
+        const total = weights.reduce((a, b) => a + b, 0);
+        const raw = weights.map(w => (w / total) * n);
+        const base = raw.map(Math.floor);
+        let left = n - base.reduce((a, b) => a + b, 0);
+        raw.map((v, i) => [v - Math.floor(v), i]).sort((a, b) => b[0] - a[0]).forEach(([, i]) => {
+            if (left > 0) { base[i]++; left--; }
+        });
+        return base;
     }
 
     function generateNewFeedP3() {
         const c = p3Scenarios[p3Index].cats;
         const total = p3Weights.reduce((a, b) => a + b, 0);
         const pct = p3Weights.map(w => ((w / total) * 100).toFixed(1));
+        const slots = allocateSlots(p3Weights, 10);
         document.getElementById('p3-results-area').style.display = 'block';
 
+        const note = p3Touched ? '' :
+            `<div style="font-size:0.82rem;color:#b45309;margin-bottom:8px;">⚠️ Bạn chưa điều chỉnh gì nên bảng tin vẫn giữ nguyên như ban đầu.</div>`;
+
         document.getElementById('p3-chart-compare').innerHTML = `
-            <div style="font-size:0.85rem;margin-bottom:6px;">🔴 Ban đầu: ${c.map(x => `${x[1]} ${x[0]}${x[2]}%`).join(' | ')}</div>
-            <div style="font-size:0.85rem;margin-bottom:10px;color:#0284c7;">🟢 Bảng tin MỚI: ${c.map((x, i) => `${x[1]} ${x[0]}${pct[i]}%`).join(' | ')}</div>
+            ${note}
+            <div style="font-size:0.85rem;margin-bottom:6px;">🔴 Ban đầu: ${c.map(x => `${x[1]} ${x[0]} ${x[2]}%`).join(' | ')}</div>
+            <div style="font-size:0.85rem;margin-bottom:6px;color:#0284c7;">🟢 Bảng tin mới: ${c.map((x, i) => `${x[1]} ${x[0]} ${pct[i]}%`).join(' | ')}</div>
+            <div style="font-size:0.82rem;margin-bottom:10px;color:var(--text-muted);">Trong 10 bài: ${c.map((x, i) => `${x[0]} ${slots[i]} bài`).join(', ')}.</div>
             <div class="bar-track" style="height:14px;display:flex;">
-                ${pct.map((p, i) => `<div style="width:${p}\%;background:${p3Colors[i]};"></div>`).join('')}
+                ${pct.map((p, i) => `<div style="width:${p}%;background:${p3Colors[i]};"></div>`).join('')}
             </div>`;
 
-        let html = '';
-        for (let i = 1; i <= 10; i++) {
-            let r = Math.random() * total, idx = 0;
-            for (; idx < p3Weights.length - 1; idx++) { r -= p3Weights[idx]; if (r <= 0) break; }
-            html += `<div style="background:white;padding:10px 15px;border-radius:8px;margin-bottom:6px;border-left:4px solid ${p3Colors[idx]};font-size:0.88rem;">
-                <strong>#Bài ${i} [${c[idx][0].toUpperCase()}]:</strong> ${c[idx][1]} Nội dung mới về "${c[idx][0]}" dành cho bạn</div>`;
+        // Tạo danh sách bài theo đúng số lượng rồi xáo trộn thứ tự
+        let order = [];
+        slots.forEach((n, i) => { for (let k = 0; k < n; k++) order.push(i); });
+        for (let i = order.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [order[i], order[j]] = [order[j], order[i]];
         }
+        let html = '';
+        order.forEach((idx, n) => {
+            html += `<div style="background:white;padding:10px 15px;border-radius:8px;margin-bottom:6px;border-left:4px solid ${p3Colors[idx]};font-size:0.88rem;">
+                <strong>Bài ${n + 1} [${c[idx][0]}]:</strong> ${c[idx][1]} Nội dung mới về “${c[idx][0]}” dành cho bạn</div>`;
+        });
         document.getElementById('p3-posts-list').innerHTML = html;
     }
 
@@ -796,117 +876,201 @@
         const val = document.getElementById('p3-sentence').value.trim();
         if (!val) return alert('Hãy nhập câu trả lời!');
         p3Answers[p3Index] = val;
-        document.getElementById('p3-submitted-text').innerText = `✅ Đã ghi nhận: "Để bảng tin phù hợp hơn, bạn sẽ ${val}"`;
+        document.getElementById('p3-submitted-text').innerText = `✅ Đã ghi nhận: “Để bảng tin phù hợp hơn, bạn sẽ ${val}”`;
     }
 
     function nextP3() {
         if (p3Index < p3Scenarios.length - 1) { p3Index++; loadP3(); return; }
         document.getElementById('p3-next').style.display = 'none';
-        document.getElementById('p3-submitted-text').innerText += ' 🎉 Bạn đã hoàn thành tất cả tình huống Phần III!';
+        document.getElementById('p3-submitted-text').innerText += ' 🎉 Bạn đã hoàn thành tất cả tình huống phần III!';
     }
 
     function resetP3() { p3Index = 0; p3Answers = []; loadP3(); }
 
     function downloadP3() {
-        let text = "--- KẾT QUẢ PHẦN III ---\n";
+        let text = "--- Kết quả phần III ---\n";
         p3Scenarios.forEach((s, i) => {
             text += `Tình huống ${i + 1} (${s.cats[0][0]} chiếm 70%): ${p3Answers[i] ? 'Để bảng tin phù hợp hơn, bạn sẽ ' + p3Answers[i] : 'Chưa hoàn thành'}\n`;
         });
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(new Blob([text], { type: "text/plain;charset=utf-8" }));
-        a.download = "Ket_Qua_Phan_3.txt"; a.click();
+        saveTextFile("Ket_Qua_Phan_3.txt", text);
     }
 
     /* =============================================================== */
-    /* LOGIC PHẦN IV (MỚI - TỪNG BƯỚC TƯƠNG TÁC)                       */
+    /* LOGIC PHẦN IV: TỪNG BƯỚC + BẢN ĐÁNH GIÁ KẾT QUẢ                 */
     /* =============================================================== */
+    const p4TalkOptions = ['Cha mẹ', 'Thầy cô', 'Bạn bè'];
     const p4Steps = [
         {
             title: "Bước 1: Thay đổi từ khóa tìm kiếm chủ động",
-            desc: "Thuật toán chỉ gợi ý các video cấm điện thoại vì bạn hay tìm từ khóa tiêu cực. Hãy chủ động đổi hướng tìm kiếm để thuật toán nạp dữ liệu mới.",
-            actionType: "input",
-            placeholder: "Ví dụ: Gõ 'lợi ích của công nghệ trong học tập thông minh'...",
+            desc: "Thuật toán chỉ gợi ý các video cấm điện thoại vì bạn hay tìm từ khóa một chiều. Hãy chủ động đổi hướng tìm kiếm để thuật toán nạp dữ liệu mới.",
+            type: "input",
+            placeholder: "Ví dụ: lợi ích và hạn chế của điện thoại trong học tập",
             key: "keyword"
         },
         {
-            title: "Bước 2: Tự đặt câu hỏi đối lập phản biện",
+            title: "Bước 2: Tự đặt câu hỏi đối lập",
             desc: "Đừng chỉ nghe một chiều. Hãy tự vấn để nhìn nhận vấn đề khách quan hơn.",
-            actionType: "choice",
-            question: "Nếu cấm hoàn toàn điện thoại ở trường, điều gì sẽ khó khăn nhất?",
+            type: "multi",
+            question: "Nếu cấm hoàn toàn điện thoại ở trường, điều gì sẽ gây khó khăn? (chọn tất cả ý bạn thấy hợp lý)",
             options: [
                 "Không tra cứu được tài liệu nhanh khi cần thiết.",
                 "Giáo viên khó giao bài tập về nhà qua ứng dụng lớp học.",
-                "Học sinh thiếu kỹ năng tự quản lý thiết bị thông minh."
+                "Học sinh thiếu kỹ năng tự quản lý thiết bị thông minh.",
+                "Khó liên lạc với gia đình khi có việc khẩn cấp."
             ],
             key: "question"
         },
         {
-            title: "Bước 3: Mở rộng nguồn tham khảo chính thống",
-            desc: "Thay vì chỉ xem video ngắn ngẫu nhiên trên mạng, bạn chọn đọc tài liệu từ đâu để có góc nhìn chuẩn xác?",
-            actionType: "choice",
-            question: "Bạn sẽ chọn nguồn nào để đọc thêm?",
+            title: "Bước 3: Mở rộng nguồn tham khảo",
+            desc: "Thay vì chỉ xem video ngắn ngẫu nhiên trên mạng, bạn chọn đọc thêm từ đâu để có góc nhìn chuẩn xác?",
+            type: "choice",
+            question: "Bạn sẽ chọn cách nào để đọc thêm?",
             options: [
-                "Báo chí giáo dục chính thống & chuyên gia tâm lý học đường.",
-                "Diễn đàn trao đổi kinh nghiệm của các giáo viên sáng tạo.",
-                "Cả hai nguồn trên để đối chiếu khách quan."
+                { t: "Tiếp tục xem thêm video của các kênh đang được gợi ý.", s: 0 },
+                { t: "Báo chí giáo dục chính thống và chuyên gia tâm lý học đường.", s: 2 },
+                { t: "Nhiều nguồn khác nhau, gồm cả quan điểm ủng hộ và phản đối, để đối chiếu.", s: 3 }
             ],
             key: "source"
         },
         {
-            title: "Bước 4: Trao đổi & Tổng kết góc nhìn đa chiều",
-            desc: "Hãy ghi lại bài học hoặc góc nhìn bạn vừa rút ra sau khi thảo luận với bạn bè hoặc thầy cô.",
-            actionType: "finalInput",
-            placeholder: "Ví dụ: Không nên cấm cực đoan mà nên hướng dẫn học sinh quy tắc sử dụng hợp lý...",
+            title: "Bước 4: Trao đổi và tổng kết góc nhìn đa chiều",
+            desc: "Hãy chọn những người bạn đã trao đổi và ghi lại góc nhìn bạn rút ra.",
+            type: "final",
+            placeholder: "Ví dụ: Không nên cấm cực đoan, nhưng cần hướng dẫn học sinh quy tắc sử dụng hợp lý.",
             key: "reflection"
         }
     ];
 
     let currentP4Step = 0;
-    let p4UserData = { keyword: "", question: "", source: "", reflection: "" };
+    let p4UserData = { keyword: "", question: [], source: -1, reflection: "", talked: [] };
+
+    function saveP4Input() {
+        const el = document.getElementById('p4-input-val');
+        if (el && currentP4Step < p4Steps.length) p4UserData[p4Steps[currentP4Step].key] = el.value.trim();
+    }
+
+    // ---- Chấm điểm theo thang 0–3 cho mỗi tiêu chí ----
+    function scoreP4() {
+        const d = p4UserData;
+        const contrast = /lợi ích|ưu điểm|tích cực|hai mặt|hai chiều|đa chiều|so sánh|ngược lại|hạn chế|tác hại|phản biện|ý kiến|quan điểm|góc nhìn|mặt trái|khác/i;
+        const balance = /nhưng|tuy nhiên|đồng thời|cân bằng|vừa|hướng dẫn|quy tắc|hợp lý|thay vì/i;
+
+        const wk = wordCount(d.keyword);
+        const kw = wk === 0 ? 0 : wk < 3 ? 1 : contrast.test(d.keyword) ? 3 : 2;
+
+        const qs = Math.min(3, d.question.length);
+        const ss = d.source >= 0 ? p4Steps[2].options[d.source].s : 0;
+
+        const wr = wordCount(d.reflection);
+        const rs = wr === 0 ? 0 : wr < 5 ? 1 : (wr >= 10 && balance.test(d.reflection)) ? 3 : 2;
+
+        const ts = Math.min(3, d.talked.length);
+
+        return [
+            { name: "Mở rộng từ khóa tìm kiếm", score: kw, tip: "Viết từ khóa từ 3 từ trở lên và có yếu tố đối lập (ví dụ: lợi ích, hạn chế, ý kiến ngược lại)." },
+            { name: "Đặt câu hỏi đối lập", score: qs, tip: "Tìm thêm ít nhất 3 khó khăn hoặc góc nhìn đối lập cho vấn đề." },
+            { name: "Đa dạng nguồn tham khảo", score: ss, tip: "Đối chiếu nhiều nguồn, gồm cả quan điểm trái chiều, thay vì chỉ xem video được gợi ý." },
+            { name: "Trao đổi với người xung quanh", score: ts, tip: "Trao đổi với cả 3 nhóm: cha mẹ, thầy cô và bạn bè." },
+            { name: "Chất lượng góc nhìn tổng kết", score: rs, tip: "Viết từ 10 từ trở lên và nêu cả hai mặt của vấn đề (dùng các từ như “nhưng”, “đồng thời”)." }
+        ];
+    }
+
+    const p4LevelLabels = ["Chưa thực hiện", "Cần cải thiện", "Đạt", "Tốt"];
+    const p4LevelColors = ["#ef4444", "#f59e0b", "#0088ff", "#10b981"];
+
+    function p4Rating(total) {
+        if (total >= 13) return { label: "Xuất sắc", color: "#10b981", msg: "Bạn đã thật sự phá vỡ được “bong bóng thông tin”: chủ động tìm nhiều góc nhìn, đối chiếu nguồn và trao đổi với mọi người." };
+        if (total >= 10) return { label: "Tốt", color: "#0088ff", msg: "Bạn đã biết cách mở rộng góc nhìn. Chỉ cần củng cố thêm một vài tiêu chí là đạt mức xuất sắc." };
+        if (total >= 6) return { label: "Đạt", color: "#f59e0b", msg: "Bạn đã có những bước đầu tốt, nhưng vẫn còn thiên về một chiều. Hãy thử lại với các gợi ý bên dưới." };
+        return { label: "Cần cải thiện", color: "#ef4444", msg: "Bảng tin của bạn vẫn nhiều khả năng bị bó hẹp. Hãy làm lại từng bước và thực hiện theo các gợi ý." };
+    }
+
+    function renderP4Result() {
+        saveP4Input();
+        const crit = scoreP4();
+        const total = crit.reduce((a, c) => a + c.score, 0);
+        const max = crit.length * 3;
+        const rating = p4Rating(total);
+
+        let rows = crit.map(c => `
+            <tr>
+                <td><strong>${c.name}</strong></td>
+                <td style="text-align:center;">${c.score}/3</td>
+                <td><span style="color:${p4LevelColors[c.score]};font-weight:700;">${p4LevelLabels[c.score]}</span></td>
+            </tr>`).join('');
+
+        let tips = crit.filter(c => c.score < 3).map(c => `<li><strong>${c.name}:</strong> ${c.tip}</li>`).join('');
+
+        return `
+            <span class="post-tag" style="background:#dcfce7;color:#166534;">📊 Bản đánh giá kết quả</span>
+            <div class="post-title" style="font-size:1.05rem;margin-top:5px;">Tổng điểm: ${total}/${max} —
+                <span style="color:${rating.color};">${rating.label}</span></div>
+            <div class="progress-bar-box" style="margin:8px 0 12px;"><div class="progress-bar-fill" style="width:${(total / max) * 100}%;background:${rating.color};"></div></div>
+            <div class="post-content" style="margin-bottom:12px;">${rating.msg}</div>
+            <table class="stats-table">
+                <thead><tr><th>Tiêu chí</th><th style="text-align:center;">Điểm</th><th>Mức độ</th></tr></thead>
+                <tbody>${rows}</tbody>
+            </table>
+            ${tips ? `<div class="feedback-msg" style="background:#fffbeb;border-color:#fde68a;color:#92400e;"><strong>💡 Gợi ý để đạt điểm cao hơn:</strong><ul style="margin:6px 0 0 20px;">${tips}</ul></div>` : `<div class="feedback-msg">🎉 Bạn đạt mức tối đa ở mọi tiêu chí!</div>`}
+            <div style="margin-top:12px;font-size:0.78rem;color:var(--text-muted);">
+                Thang điểm mỗi tiêu chí: 0 = chưa thực hiện, 1 = cần cải thiện, 2 = đạt, 3 = tốt. Tổng điểm: 13–15 xuất sắc; 10–12 tốt; 6–9 đạt; dưới 6 cần cải thiện.
+            </div>`;
+    }
 
     function renderP4Step() {
-        const step = p4Steps[currentP4Step];
-        document.getElementById('p4-step-indicator').innerText = `Bước ${currentP4Step + 1} / ${p4Steps.length}`;
-        const pct = ((currentP4Step + 1) / p4Steps.length) * 100;
-        document.getElementById('p4-progress-bar').style.width = `${pct}%`;
-        document.getElementById('p4-progress-label').innerText = `${Math.round(pct)}% hoàn thành`;
+        const total = p4Steps.length;
+        const isResult = currentP4Step >= total;
+        const box = document.getElementById('p4-step-container');
 
-        let html = `
-            <span class="post-tag" style="background:#e0f2fe; color:#0369a1;">Hành động bước ${currentP4Step + 1}</span>
-            <div class="post-title" style="font-size: 1.05rem; margin-top: 5px;">${step.title}</div>
-            <div class="post-content" style="margin-bottom: 12px;">${step.desc}</div>
-        `;
+        if (isResult) {
+            document.getElementById('p4-step-indicator').innerText = 'Kết quả đánh giá';
+            document.getElementById('p4-progress-bar').style.width = '100%';
+            document.getElementById('p4-progress-label').innerText = '100% hoàn thành';
+            box.innerHTML = renderP4Result();
+        } else {
+            const step = p4Steps[currentP4Step];
+            const pct = ((currentP4Step + 1) / total) * 100;
+            document.getElementById('p4-step-indicator').innerText = `Bước ${currentP4Step + 1} / ${total}`;
+            document.getElementById('p4-progress-bar').style.width = `${pct}%`;
+            document.getElementById('p4-progress-label').innerText = `${Math.round(pct)}% hoàn thành`;
 
-        if (step.actionType === 'input') {
-            html += `
-                <input type="text" id="p4-input-val" placeholder="${step.placeholder}" value="${p4UserData[step.key]}" style="margin-top: 5px;">
-            `;
-        } else if (step.actionType === 'choice') {
-            html += `<p style="font-weight:600; font-size:0.88rem; margin-bottom:8px;">${step.question}</p>`;
-            step.options.forEach((opt, idx) => {
-                let isSelected = p4UserData[step.key] === opt;
-                html += `
-                    <div style="margin-bottom: 6px;">
-                        <button class="btn ${isSelected ? 'btn-success' : 'btn-outline'}" style="width: 100%; justify-content: flex-start; text-align: left;" onclick="selectP4Choice('${step.key}', \`${opt}\`)">
-                            ${isSelected ? '✅ ' : '🔸 '} ${opt}
-                        </button>
-                    </div>
-                `;
-            });
-        } else if (step.actionType === 'finalInput') {
-            html += `
-                <input type="text" id="p4-input-val" placeholder="${step.placeholder}" value="${p4UserData[step.key]}" style="margin-top: 5px;">
-                <p id="p4-summary-view" style="font-size: 0.85rem; color: #166534; font-weight: 600; margin-top: 8px;"></p>
-            `;
+            let html = `
+                <span class="post-tag" style="background:#e0f2fe; color:#0369a1;">Hành động bước ${currentP4Step + 1}</span>
+                <div class="post-title" style="font-size: 1.05rem; margin-top: 5px;">${step.title}</div>
+                <div class="post-content" style="margin-bottom: 12px;">${step.desc}</div>`;
+
+            if (step.type === 'input') {
+                html += `<input type="text" id="p4-input-val" placeholder="${esc(step.placeholder)}" value="${esc(p4UserData[step.key])}" style="margin-top: 5px;">`;
+            } else if (step.type === 'multi') {
+                html += `<p style="font-weight:600; font-size:0.88rem; margin-bottom:8px;">${step.question}</p>`;
+                step.options.forEach((opt, idx) => {
+                    const sel = p4UserData.question.includes(idx);
+                    html += `<div style="margin-bottom: 6px;"><button class="btn ${sel ? 'btn-success' : 'btn-outline'}" style="width:100%;justify-content:flex-start;text-align:left;" onclick="toggleP4Multi(${idx})">${sel ? '✅' : '🔸'} ${opt}</button></div>`;
+                });
+            } else if (step.type === 'choice') {
+                html += `<p style="font-weight:600; font-size:0.88rem; margin-bottom:8px;">${step.question}</p>`;
+                step.options.forEach((opt, idx) => {
+                    const sel = p4UserData.source === idx;
+                    html += `<div style="margin-bottom: 6px;"><button class="btn ${sel ? 'btn-success' : 'btn-outline'}" style="width:100%;justify-content:flex-start;text-align:left;" onclick="selectP4Choice(${idx})">${sel ? '✅' : '🔸'} ${opt.t}</button></div>`;
+                });
+            } else if (step.type === 'final') {
+                html += `<p style="font-weight:600; font-size:0.88rem; margin-bottom:8px;">Bạn đã trao đổi với:</p><div class="btn-group" style="margin-top:0;">`;
+                p4TalkOptions.forEach((t, idx) => {
+                    const sel = p4UserData.talked.includes(idx);
+                    html += `<button class="btn ${sel ? 'btn-success' : 'btn-outline'}" onclick="toggleP4Talk(${idx})">${sel ? '✅' : '👥'} ${t}</button>`;
+                });
+                html += `</div>
+                    <p style="font-weight:600; font-size:0.88rem; margin:8px 0 4px;">Góc nhìn tổng kết của bạn:</p>
+                    <input type="text" id="p4-input-val" placeholder="${esc(step.placeholder)}" value="${esc(p4UserData[step.key])}">`;
+            }
+            box.innerHTML = html;
         }
 
-        document.getElementById('p4-step-container').innerHTML = html;
-
-        // Cập nhật trạng thái nút điều hướng
         document.getElementById('p4-btn-prev').disabled = currentP4Step === 0;
         const nextBtn = document.getElementById('p4-btn-next');
-        if (currentP4Step === p4Steps.length - 1) {
-            nextBtn.innerText = "🏁 Hoàn thành Phần IV";
+        nextBtn.style.display = isResult ? 'none' : 'inline-flex';
+        if (currentP4Step === total - 1) {
+            nextBtn.innerText = "📊 Xem bản đánh giá";
             nextBtn.className = "btn btn-success";
         } else {
             nextBtn.innerText = "Bước tiếp theo ➔";
@@ -915,52 +1079,230 @@
     }
 
     function changeP4Step(direction) {
-        // Lưu dữ liệu trước khi chuyển bước nếu là input
-        const inputElem = document.getElementById('p4-input-val');
-        if (inputElem) {
-            const key = p4Steps[currentP4Step].key;
-            p4UserData[key] = inputElem.value.trim();
-        }
-
-        currentP4Step += direction;
-        if (currentP4Step < 0) {
-            currentP4Step = 0;
-        } else if (currentP4Step >= p4Steps.length) {
-            currentP4Step = p4Steps.length - 1;
-            alert("🎉 Chúc mừng bạn đã hoàn thành xuất sắc 4 bước phá vỡ bong bóng thông tin ở Phần IV!");
-        }
+        saveP4Input();
+        currentP4Step = Math.max(0, Math.min(p4Steps.length, currentP4Step + direction));
         renderP4Step();
     }
 
-    function selectP4Choice(key, val) {
-        p4UserData[key] = val;
+    function toggleP4Multi(idx) {
+        const a = p4UserData.question, i = a.indexOf(idx);
+        if (i >= 0) a.splice(i, 1); else a.push(idx);
+        renderP4Step();
+    }
+
+    function selectP4Choice(idx) { p4UserData.source = idx; renderP4Step(); }
+
+    function toggleP4Talk(idx) {
+        saveP4Input();
+        const a = p4UserData.talked, i = a.indexOf(idx);
+        if (i >= 0) a.splice(i, 1); else a.push(idx);
         renderP4Step();
     }
 
     function resetP4() {
         currentP4Step = 0;
-        p4UserData = { keyword: "", question: "", source: "", reflection: "" };
+        p4UserData = { keyword: "", question: [], source: -1, reflection: "", talked: [] };
         renderP4Step();
     }
 
     function downloadP4() {
-        let text = "--- KẾT QUẢ PHẦN IV: PHÁ VỠ BONG BÓNG THÔNG TIN ---\n";
-        text += `1. Từ khóa mới: ${p4UserData.keyword || 'Chưa nhập'}\n`;
-        text += `2. Câu hỏi đối lập: ${p4UserData.question || 'Chưa chọn'}\n`;
-        text += `3. Nguồn tham khảo: ${p4UserData.source || 'Chưa chọn'}\n`;
-        text += `4. Góc nhìn tổng kết: ${p4UserData.reflection || 'Chưa nhập'}\n`;
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(new Blob([text], { type: "text/plain;charset=utf-8" }));
-        a.download = "Ket_Qua_Phan_4.txt";
-        a.click();
+        saveP4Input();
+        const crit = scoreP4();
+        const total = crit.reduce((a, c) => a + c.score, 0);
+        const d = p4UserData;
+        let text = "--- Kết quả phần IV: phá vỡ bong bóng thông tin ---\n";
+        text += `1. Từ khóa mới: ${d.keyword || 'Chưa nhập'}\n`;
+        text += `2. Câu hỏi đối lập đã chọn: ${d.question.length ? d.question.map(i => p4Steps[1].options[i]).join(' | ') : 'Chưa chọn'}\n`;
+        text += `3. Nguồn tham khảo: ${d.source >= 0 ? p4Steps[2].options[d.source].t : 'Chưa chọn'}\n`;
+        text += `4. Đã trao đổi với: ${d.talked.length ? d.talked.map(i => p4TalkOptions[i]).join(', ') : 'Chưa trao đổi'}\n`;
+        text += `5. Góc nhìn tổng kết: ${d.reflection || 'Chưa nhập'}\n\n--- Bản đánh giá ---\n`;
+        crit.forEach(c => { text += `- ${c.name}: ${c.score}/3 (${p4LevelLabels[c.score]})\n`; });
+        text += `Tổng điểm: ${total}/${crit.length * 3} — ${p4Rating(total).label}\n`;
+        saveTextFile("Ket_Qua_Phan_4.txt", text);
     }
 
     /* =============================================================== */
-    /* LOGIC PHẦN V                                                    */
+    /* LOGIC PHẦN V: CÀI ĐẶT GIỜ SỬ DỤNG                               */
     /* =============================================================== */
-    function setP5TimeGoal() {
-        let min = document.getElementById('p5-time-target').value;
-        document.getElementById('p5-time-msg').innerText = `🎯 Bạn đã đặt mục tiêu giới hạn mạng xã hội: ${min} phút/ngày. Hãy duy trì thói quen lành mạnh!`;
+    const p5Contents = {
+        video: [
+            { tag: '🎬 Video ngắn', title: 'Thử thách 30 giây khiến bạn không thể rời mắt', desc: 'Một video ngắn với nhạc nền bắt tai, kết thúc lửng lơ để bạn muốn xem tiếp…' },
+            { tag: '🎬 Video ngắn', title: 'Những khoảnh khắc hài hước nhất tuần này', desc: 'Tổng hợp các đoạn clip vui nhộn, được đề xuất vì bạn vừa xem video tương tự…' },
+            { tag: '🎬 Video ngắn', title: 'Bí mật mà ít ai nói với bạn (phần 2)', desc: 'Tiêu đề gây tò mò, hứa hẹn tiết lộ điều bất ngờ ở cuối video…' },
+            { tag: '🎬 Video ngắn', title: 'Bạn có thể đã bỏ lỡ video này', desc: 'Nội dung được thuật toán đẩy lên vì đang có nhiều lượt xem…' }
+        ],
+        article: [
+            { tag: '📰 Bài viết', title: '10 điều có thể bạn chưa biết về vũ trụ', desc: 'Bài viết dạng danh sách, mỗi mục ngắn và dễ đọc, khiến bạn cuộn mãi không dừng…' },
+            { tag: '📰 Bài viết', title: 'Vì sao giấc ngủ quan trọng hơn bạn nghĩ?', desc: 'Bài viết gợi ý thêm ba bài liên quan ở cuối trang để bạn đọc tiếp…' },
+            { tag: '📰 Bài viết', title: 'Xu hướng công nghệ khiến cả thế giới bàn tán', desc: 'Tiêu đề nổi bật được đề xuất dựa trên chủ đề bạn hay đọc…' },
+            { tag: '📰 Bài viết', title: 'Bạn sẽ không tin nổi chuyện gì xảy ra tiếp theo', desc: 'Kiểu tiêu đề giật gân thường được dùng để thu hút lượt nhấp…' }
+        ]
+    };
+    const P5_ITEM_SECONDS = 6; // cứ 6 giây thật thì nội dung tự chuyển sang bài tiếp theo
+
+    let p5 = { min: 0, type: 'video', remaining: 0, timer: null, state: 'idle', seen: 1, idx: 0, tick: 0, extended: 0 };
+    let p5Log = [];
+
+    function p5Scale() { return document.getElementById('p5-fast').checked ? 60 : 1; }
+    function p5Fmt(sec) {
+        sec = Math.max(0, Math.ceil(sec));
+        return String(Math.floor(sec / 60)).padStart(2, '0') + ':' + String(sec % 60).padStart(2, '0');
+    }
+
+    function p5RenderItem() {
+        const list = p5Contents[p5.type];
+        const it = list[p5.idx % list.length];
+        document.getElementById('p5-item-tag').innerText = it.tag;
+        document.getElementById('p5-item-title').innerText = it.title;
+        document.getElementById('p5-item-desc').innerText = it.desc;
+        document.getElementById('p5-item-progress').style.width = '0%';
+        document.getElementById('p5-item-counter').innerText =
+            p5.state === 'idle' ? 'Nội dung tiếp theo sẽ tự động phát…' : `Đã xem: ${p5.seen} nội dung • Nội dung tiếp theo sẽ tự động phát…`;
+    }
+
+    function p5UpdateButtons() {
+        const idle = p5.state === 'idle';
+        const active = p5.state === 'running' || p5.state === 'paused';
+        document.getElementById('p5-btn-start').disabled = !(idle && p5.min > 0);
+        document.getElementById('p5-btn-pause').disabled = !active;
+        document.getElementById('p5-btn-pause').innerText = p5.state === 'paused' ? '▶️ Tiếp tục' : '⏸️ Tạm dừng';
+        document.getElementById('p5-btn-stop').disabled = !active;
+        document.querySelectorAll('.p5-time-btn, .p5-type-btn').forEach(b => b.disabled = !idle);
+        document.getElementById('p5-fast').disabled = !idle;
+    }
+
+    function p5PickType(t) {
+        if (p5.state !== 'idle') return;
+        p5.type = t; p5.idx = 0;
+        document.getElementById('p5-type-video').className = 'btn p5-type-btn ' + (t === 'video' ? 'btn-primary' : 'btn-outline');
+        document.getElementById('p5-type-article').className = 'btn p5-type-btn ' + (t === 'article' ? 'btn-primary' : 'btn-outline');
+        p5RenderItem();
+    }
+
+    function p5PickTime(m) {
+        if (p5.state !== 'idle') return;
+        p5.min = m; p5.remaining = m * 60;
+        document.querySelectorAll('.p5-time-btn').forEach(b => b.className = 'btn p5-time-btn btn-outline');
+        document.getElementById('p5-time-' + m).className = 'btn p5-time-btn btn-primary';
+        document.getElementById('p5-clock').innerText = p5Fmt(p5.remaining);
+        document.getElementById('p5-status').innerText = `Bạn đã cài đặt giờ sử dụng: ${m} phút. Bấm “Bắt đầu lướt”.`;
+        p5UpdateButtons();
+    }
+
+    function p5StartTimer() {
+        clearInterval(p5.timer);
+        p5.timer = setInterval(p5Tick, 1000);
+    }
+
+    function p5Start() {
+        if (!p5.min) return;
+        p5.state = 'running'; p5.seen = 1; p5.idx = 0; p5.tick = 0; p5.extended = 0;
+        p5.remaining = p5.min * 60;
+        document.getElementById('p5-timeup').style.display = 'none';
+        document.getElementById('p5-result').style.display = 'none';
+        document.getElementById('p5-player').classList.remove('dimmed');
+        document.getElementById('p5-status').innerText = 'Đang lướt… nội dung sẽ tự chuyển liên tục.';
+        p5RenderItem();
+        document.getElementById('p5-clock').innerText = p5Fmt(p5.remaining);
+        p5UpdateButtons();
+        p5StartTimer();
+    }
+
+    function p5Tick() {
+        p5.remaining -= p5Scale();
+        p5.tick++;
+        document.getElementById('p5-clock').innerText = p5Fmt(p5.remaining);
+        const within = p5.tick % P5_ITEM_SECONDS;
+        document.getElementById('p5-item-progress').style.width = `${(within / P5_ITEM_SECONDS) * 100}%`;
+        if (within === 0) { p5.idx++; p5.seen++; p5RenderItem(); }
+
+        if (p5.remaining <= 0) {
+            clearInterval(p5.timer);
+            p5.remaining = 0;
+            p5.state = 'timeup';
+            document.getElementById('p5-clock').innerText = '00:00';
+            document.getElementById('p5-status').innerText = 'Đã hết thời gian cài đặt.';
+            document.getElementById('p5-player').classList.add('dimmed');
+            document.getElementById('p5-timeup-text').innerText =
+                `Bạn đã dùng hết ${p5.min + p5.extended * 5} phút do chính bạn cài đặt và đã xem ${p5.seen} nội dung. Nội dung tiếp theo vẫn đang chờ, nhưng đã đến lúc dừng lại.`;
+            document.getElementById('p5-timeup').style.display = 'block';
+            p5UpdateButtons();
+        }
+    }
+
+    function p5TogglePause() {
+        if (p5.state === 'running') {
+            p5.state = 'paused'; clearInterval(p5.timer);
+            document.getElementById('p5-status').innerText = 'Đã tạm dừng.';
+        } else if (p5.state === 'paused') {
+            p5.state = 'running'; p5StartTimer();
+            document.getElementById('p5-status').innerText = 'Đang lướt… nội dung sẽ tự chuyển liên tục.';
+        }
+        p5UpdateButtons();
+    }
+
+    function p5Extend() {
+        p5.extended++;
+        p5.remaining = 5 * 60;
+        p5.state = 'running';
+        document.getElementById('p5-timeup').style.display = 'none';
+        document.getElementById('p5-player').classList.remove('dimmed');
+        document.getElementById('p5-status').innerText = `Bạn đã gia hạn thêm 5 phút (lần ${p5.extended}).`;
+        document.getElementById('p5-clock').innerText = p5Fmt(p5.remaining);
+        p5UpdateButtons();
+        p5StartTimer();
+    }
+
+    function p5StopEarly() { p5Finish('Dừng sớm'); }
+
+    function p5Finish(outcome) {
+        clearInterval(p5.timer);
+        const totalMin = p5.min + p5.extended * 5;
+        p5Log.push({ min: p5.min, type: p5.type === 'video' ? 'Video ngắn' : 'Bài viết', extended: p5.extended, seen: p5.seen, outcome });
+
+        let eval1;
+        if (outcome === 'Dừng sớm') eval1 = '🌟 Bạn chủ động dừng trước giờ đã cài đặt. Đây là biểu hiện của người làm chủ thuật toán!';
+        else if (p5.extended === 0) eval1 = '✅ Bạn dừng đúng giờ và giữ đúng cam kết với chính mình.';
+        else eval1 = `⚠️ Bạn đã gia hạn ${p5.extended} lần (thêm ${p5.extended * 5} phút). Lần sau hãy thử giữ nguyên mục tiêu ban đầu.`;
+
+        const box = document.getElementById('p5-result');
+        box.style.display = 'block';
+        box.innerHTML = `<strong>📊 Kết quả phiên sử dụng:</strong><br>
+            • Loại nội dung: <strong>${p5.type === 'video' ? 'Video ngắn' : 'Bài viết'}</strong><br>
+            • Giờ cài đặt: <strong>${p5.min} phút</strong> (tổng thời gian dự kiến dùng: <strong>${totalMin} phút</strong>)<br>
+            • Số nội dung đã xem: <strong>${p5.seen}</strong><br>
+            • Cách kết thúc: <strong>${outcome}</strong><br><br>${eval1}<br><br>
+            💡 <em>Nhận xét: thuật toán luôn tự phát nội dung kế tiếp, vì vậy giờ cài đặt chính là “phanh” do bạn nắm giữ.</em>`;
+
+        document.getElementById('p5-timeup').style.display = 'none';
+        document.getElementById('p5-player').classList.remove('dimmed');
+        document.getElementById('p5-status').innerText = 'Phiên đã kết thúc. Bạn có thể chọn giờ mới để thử lại.';
+        p5.state = 'idle';
+        p5UpdateButtons();
+    }
+
+    function p5Reset() {
+        clearInterval(p5.timer);
+        p5 = { min: 0, type: 'video', remaining: 0, timer: null, state: 'idle', seen: 1, idx: 0, tick: 0, extended: 0 };
+        p5Log = [];
+        document.querySelectorAll('.p5-time-btn').forEach(b => b.className = 'btn p5-time-btn btn-outline');
+        p5PickType('video');
+        document.getElementById('p5-clock').innerText = '--:--';
+        document.getElementById('p5-status').innerText = 'Hãy chọn thời gian rồi bấm “Bắt đầu lướt”.';
+        document.getElementById('p5-timeup').style.display = 'none';
+        document.getElementById('p5-result').style.display = 'none';
+        document.getElementById('p5-player').classList.remove('dimmed');
+        p5RenderItem();
+        p5UpdateButtons();
+    }
+
+    function downloadP5() {
+        let text = "--- Kết quả phần V: cài đặt giờ sử dụng ---\n";
+        if (!p5Log.length) text += "Chưa có phiên sử dụng nào.\n";
+        p5Log.forEach((l, i) => {
+            text += `Phiên ${i + 1}: ${l.type} | Giờ cài đặt: ${l.min} phút | Gia hạn: ${l.extended} lần | Đã xem: ${l.seen} nội dung | Kết thúc: ${l.outcome}\n`;
+        });
+        saveTextFile("Ket_Qua_Phan_5.txt", text);
     }
 
     // KHỞI TẠO
@@ -970,6 +1312,8 @@
         loadP2();
         loadP3();
         renderP4Step();
+        p5RenderItem();
+        p5UpdateButtons();
     };
 </script>
 
