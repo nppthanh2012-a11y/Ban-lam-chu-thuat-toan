@@ -146,7 +146,7 @@
             <h2 class="section-title">Nhận biết cơ chế đề xuất của thuật toán</h2>
         </div>
         <div class="target-box">
-            🎯 <strong>Mục tiêu:</strong> Nhận biết các thao tác xem, thích, chia sẻ và bỏ qua tạo ra tín hiệu ảnh hưởng đến nội dung được đề xuất.
+            🎯 <strong>Mục tiêu:</strong> Nhận biết các thao tác xem, thích, chia sẻ và bình luận tạo ra tín hiệu ảnh hưởng đến nội dung được đề xuất.
         </div>
  
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
@@ -169,9 +169,8 @@
         </div>
  
         <div id="p1-action-area" style="display:none;">
-            <p style="font-size: 0.88rem; font-weight: 600;">👆 Bước 2: Chọn thao tác đi kèm (có thể chọn nhiều, trừ “Không quan tâm”):</p>
+            <p style="font-size: 0.88rem; font-weight: 600;">👆 Bước 2: Chọn thao tác đi kèm (có thể chọn nhiều):</p>
             <div class="btn-group">
-                <button class="btn btn-outline" id="p1-a-skip" onclick="toggleActP1('skip')">🙅 Không quan tâm (-1đ)</button>
                 <button class="btn btn-outline" id="p1-a-like" onclick="toggleActP1('like')">❤️ Thích (+2đ)</button>
                 <button class="btn btn-outline" id="p1-a-share" onclick="toggleActP1('share')">↗ Chia sẻ / Lưu (+5đ)</button>
                 <button class="btn btn-outline" id="p1-a-comment" onclick="toggleActP1('comment')">💬 Bình luận (+4đ)</button>
@@ -215,7 +214,7 @@
         </div>
  
         <div style="margin-top: 15px; font-size: 0.85rem; background: #fffbe0; padding: 10px; border-radius: 8px; border: 1px solid #ffe58f;">
-            📌 <strong>Thông điệp:</strong> “Mắt con người nhận diện nội dung trong 0,3 giây, nhưng thuật toán chỉ đo số giây bạn ở lại. Vậy để loại bỏ nội dung rác không phải là bấm nút ‘không quan tâm’, mà là lướt qua thật nhanh (&lt; 2 giây).”
+            📌 <strong>Thông điệp:</strong> “Thuật toán đo lường mức độ quan tâm dựa trên thời gian dừng lại và các tương tác của bạn. Để loại bỏ nội dung không phù hợp, cách hiệu quả nhất là lướt qua thật nhanh (&lt; 2 giây) mà không để lại bất kỳ tương tác nào.”
         </div>
     </section>
  
@@ -478,7 +477,7 @@
     }
  
     /* =============================================================== */
-    /* LOGIC PHẦN I (ĐÃ CẬP NHẬT ĐIỂM SỐ THEO YÊU CẦU MỚI)            */
+    /* LOGIC PHẦN I                                                    */
     /* =============================================================== */
     const P1_NAMES = ['Học tập', 'Thể thao', 'Âm nhạc', 'Trò chơi', 'Khám phá'];
     const p1Topics = {}, p1OccurrenceCount = {};
@@ -509,8 +508,9 @@
  
     const P1_TIME = { 2: { w: -3, label: 'dưới 2 giây' }, 5: { w: 5, label: '5 giây' }, 15: { w: 10, label: '15 giây' } };
     const P1_ACT = {
-        skip: { name: 'Không quan tâm', w: -1 }, like: { name: 'Thích', w: 2 },
-        share: { name: 'Chia sẻ/Lưu', w: 5 }, comment: { name: 'Bình luận', w: 4 }
+        like: { name: 'Thích', w: 2 },
+        share: { name: 'Chia sẻ/Lưu', w: 5 },
+        comment: { name: 'Bình luận', w: 4 }
     };
  
     let currentP1Topic = 'Học tập';
@@ -586,56 +586,46 @@
         const topic = currentP1Topic;
         if (sec === 2) {
             const r = applyP1([]);
-            setFeedbackP1(`⚡ <strong>Chủ đề ${topic} đã ${sgn(r.delta)}đ.</strong> Việc lướt nhanh như vậy khiến AI ghi nhận nội dung giữ chân người dùng thất bại và giảm đề xuất.`, 'red');
+            setFeedbackP1(`⚡ <strong>Chủ đề ${topic} đã ${sgn(r.delta)}đ.</strong> Bạn lướt qua thật nhanh (&lt; 2 giây) mà không tương tác, khiến thuật toán đánh giá đây là nội dung không giữ chân được người dùng và sẽ giảm đề xuất.`, 'red');
             return;
         }
         p1Acts = [];
         refreshActBtnsP1();
         document.getElementById('p1-action-area').style.display = 'block';
-        setFeedbackP1(`👀 Bạn ở lại <strong>${P1_TIME[sec].label}</strong> (${sgn(P1_TIME[sec].w)}đ cho thời gian xem). Hãy chọn thao tác đi kèm rồi bấm <strong>“Xác nhận thao tác”</strong>.`, 'blue');
+        setFeedbackP1(`👀 Bạn ở lại <strong>${P1_TIME[sec].label}</strong> (${sgn(P1_TIME[sec].w)}đ cho thời gian xem). Bạn có thể chọn thêm thao tác đi kèm rồi bấm <strong>“Xác nhận thao tác”</strong>.`, 'blue');
     }
  
     function refreshActBtnsP1() {
         Object.keys(P1_ACT).forEach(a => {
             const sel = p1Acts.includes(a);
-            document.getElementById('p1-a-' + a).className = 'btn ' + (sel ? (a === 'skip' ? 'btn-warning' : 'btn-success') : 'btn-outline');
+            document.getElementById('p1-a-' + a).className = 'btn ' + (sel ? 'btn-success' : 'btn-outline');
         });
     }
  
     function toggleActP1(a) {
-        if (a === 'skip') p1Acts = p1Acts.includes('skip') ? [] : ['skip'];
-        else {
-            p1Acts = p1Acts.filter(x => x !== 'skip');
-            const i = p1Acts.indexOf(a);
-            if (i >= 0) p1Acts.splice(i, 1); else p1Acts.push(a);
-        }
+        const i = p1Acts.indexOf(a);
+        if (i >= 0) p1Acts.splice(i, 1); else p1Acts.push(a);
         refreshActBtnsP1();
     }
  
     function confirmP1() {
-        if (!p1Acts.length) { alert('Hãy chọn ít nhất một thao tác!'); return; }
         const topic = currentP1Topic, sec = p1Time, acts = p1Acts.slice();
         document.getElementById('p1-action-area').style.display = 'none';
         const r = applyP1(acts);
         const detail = `(thời gian ${sgn(r.tw)}đ, thao tác ${sgn(r.aw)}đ)`;
         let msg, color;
  
-        if (acts.includes('skip')) {
-            if (sec === 5) {
-                msg = `<strong>${sgn(r.delta)}đ cho chủ đề ${topic}</strong> ${detail}, vì bạn đã tương tác với nội dung và dừng lại 5 giây. Việc ấn “Không quan tâm” chỉ giảm tạm thời để làm bạn nghĩ rằng nội dung đó sẽ không xuất hiện nữa, nhưng thuật toán vẫn ghi nhận bạn đã dừng lại.`;
-                color = 'amber';
-            } else {
-                msg = `<strong>${sgn(r.delta)}đ cho chủ đề ${topic}</strong> ${detail}. Bạn xem chi tiết tới 15 giây nên nút “Không quan tâm” gần như không có tác dụng: thuật toán hiểu rằng bạn rất quan tâm tới chủ đề này, nội dung tương tự sẽ còn xuất hiện nhiều hơn.`;
-                color = 'amber';
-            }
+        if (!acts.length) {
+            msg = `<strong>${sgn(r.delta)}đ cho chủ đề ${topic}</strong> ${detail}. Dù không tương tác, việc bạn dừng lại xem ${P1_TIME[sec].label} đã gửi tín hiệu tích cực tới thuật toán để đề xuất thêm chủ đề này.`;
+            color = 'amber';
         } else {
             const n = acts.length;
             const lvl = sec === 5 ? ['', 'tương tác trung bình', 'tương tác khá', 'tương tác khá cao'][n]
                                   : ['', 'tương tác cao', 'tương tác rất cao', 'tương tác tối đa'][n];
             const names = acts.map(a => P1_ACT[a].name).join(' + ');
             const tail = sec === 5
-                ? 'Bạn mới đọc lướt nhưng đã có thao tác, thuật toán bắt đầu coi đây là nội dung bạn thích.'
-                : 'Bạn xem lâu và còn tương tác, thuật toán sẽ đẩy chủ đề này lên rất mạnh.';
+                ? 'Bạn đọc lướt và có tương tác, thuật toán bắt đầu ghi nhận đây là nội dung bạn quan tâm.'
+                : 'Bạn xem lâu và còn tương tác, thuật toán sẽ tăng đề xuất chủ đề này lên rất mạnh.';
             msg = `<strong>Đã ${sgn(r.delta)}đ cho chủ đề ${topic}</strong> ${detail} với thao tác: ${names}. Mức độ: <strong>${lvl}</strong>. ${tail}`;
             color = 'green';
         }
@@ -1238,6 +1228,18 @@
     function p5Fmt(sec) {
         sec = Math.max(0, Math.ceil(sec));
         return String(Math.floor(sec / 60)).padStart(2, '0') + ':' + String(sec % 60).padStart(2, '0');
+    }
+ 
+    function p5PickTime(min) {
+        if (p5.state !== 'idle') return;
+        p5.min = min;
+        p5.remaining = min * 60;
+        document.querySelectorAll('.p5-time-btn').forEach(b => b.className = 'btn p5-time-btn btn-outline');
+        const btn = document.getElementById('p5-time-' + min);
+        if (btn) btn.className = 'btn p5-time-btn btn-primary';
+        document.getElementById('p5-clock').innerText = p5Fmt(p5.remaining);
+        document.getElementById('p5-status').innerText = `Đã chọn ${min} phút. Bấm “Bắt đầu lướt” để trải nghiệm.`;
+        p5UpdateButtons();
     }
  
     function p5SetCounter() {
