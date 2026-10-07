@@ -1,6 +1,3 @@
-
-
-Ban lam chu thuat toan · HTML
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -165,9 +162,9 @@ Ban lam chu thuat toan · HTML
         <div id="p1-time-area">
             <p style="font-size: 0.88rem; font-weight: 600;">⏱️ Bước 1: Bạn dành bao lâu cho bài đăng này?</p>
             <div class="btn-group">
-                <button class="btn btn-outline btn-p1-time" onclick="pickTimeP1(2)">⚡ &lt; 2 giây: mắt nhận diện rồi lướt đi ngay (-5đ)</button>
-                <button class="btn btn-outline btn-p1-time" onclick="pickTimeP1(5)">👀 5 giây: dừng lại đọc tiêu đề, đọc lướt (+2đ)</button>
-                <button class="btn btn-outline btn-p1-time" onclick="pickTimeP1(15)">📖 15 giây: xem chi tiết bài viết (+8đ)</button>
+                <button class="btn btn-outline btn-p1-time" onclick="pickTimeP1(2)">⚡ &lt; 2 giây: mắt nhận diện rồi lướt đi ngay (-3đ)</button>
+                <button class="btn btn-outline btn-p1-time" onclick="pickTimeP1(5)">👀 5 giây: dừng lại đọc tiêu đề, đọc lướt (+5đ)</button>
+                <button class="btn btn-outline btn-p1-time" onclick="pickTimeP1(15)">📖 15 giây: xem chi tiết bài viết (+10đ)</button>
             </div>
         </div>
  
@@ -175,9 +172,9 @@ Ban lam chu thuat toan · HTML
             <p style="font-size: 0.88rem; font-weight: 600;">👆 Bước 2: Chọn thao tác đi kèm (có thể chọn nhiều, trừ “Không quan tâm”):</p>
             <div class="btn-group">
                 <button class="btn btn-outline" id="p1-a-skip" onclick="toggleActP1('skip')">🙅 Không quan tâm (-1đ)</button>
-                <button class="btn btn-outline" id="p1-a-like" onclick="toggleActP1('like')">❤️ Thích (+3đ)</button>
-                <button class="btn btn-outline" id="p1-a-share" onclick="toggleActP1('share')">↗ Chia sẻ / Lưu (+3đ)</button>
-                <button class="btn btn-outline" id="p1-a-comment" onclick="toggleActP1('comment')">💬 Bình luận (+5đ)</button>
+                <button class="btn btn-outline" id="p1-a-like" onclick="toggleActP1('like')">❤️ Thích (+2đ)</button>
+                <button class="btn btn-outline" id="p1-a-share" onclick="toggleActP1('share')">↗ Chia sẻ / Lưu (+5đ)</button>
+                <button class="btn btn-outline" id="p1-a-comment" onclick="toggleActP1('comment')">💬 Bình luận (+4đ)</button>
             </div>
             <button class="btn btn-primary" onclick="confirmP1()">✔️ Xác nhận thao tác</button>
         </div>
@@ -481,7 +478,7 @@ Ban lam chu thuat toan · HTML
     }
  
     /* =============================================================== */
-    /* LOGIC PHẦN I (MỚI): S mới = S cũ + trọng số thời gian + trọng số thao tác */
+    /* LOGIC PHẦN I (ĐÃ CẬP NHẬT ĐIỂM SỐ THEO YÊU CẦU MỚI)            */
     /* =============================================================== */
     const P1_NAMES = ['Học tập', 'Thể thao', 'Âm nhạc', 'Trò chơi', 'Khám phá'];
     const p1Topics = {}, p1OccurrenceCount = {};
@@ -510,17 +507,17 @@ Ban lam chu thuat toan · HTML
         ]
     };
  
-    const P1_TIME = { 2: { w: -5, label: 'dưới 2 giây' }, 5: { w: 2, label: '5 giây' }, 15: { w: 8, label: '15 giây' } };
+    const P1_TIME = { 2: { w: -3, label: 'dưới 2 giây' }, 5: { w: 5, label: '5 giây' }, 15: { w: 10, label: '15 giây' } };
     const P1_ACT = {
-        skip: { name: 'Không quan tâm', w: -1 }, like: { name: 'Thích', w: 3 },
-        share: { name: 'Chia sẻ/Lưu', w: 3 }, comment: { name: 'Bình luận', w: 5 }
+        skip: { name: 'Không quan tâm', w: -1 }, like: { name: 'Thích', w: 2 },
+        share: { name: 'Chia sẻ/Lưu', w: 5 }, comment: { name: 'Bình luận', w: 4 }
     };
  
     let currentP1Topic = 'Học tập';
     let historyP1 = [], recordsP1 = [];
     let interactionCountP1 = 0, p1Time = null, p1Acts = [];
  
-    function p1ActW(a) { return (a === 'comment' && p1Time === 5) ? 1 : P1_ACT[a].w; }
+    function p1ActW(a) { return P1_ACT[a].w; }
     function sgn(n) { return (n > 0 ? '+' : '') + n; }
  
     function renderChartP1() {
@@ -593,7 +590,6 @@ Ban lam chu thuat toan · HTML
             return;
         }
         p1Acts = [];
-        document.getElementById('p1-a-comment').innerText = `💬 Bình luận (${sgn(p1ActW('comment'))}đ)`;
         refreshActBtnsP1();
         document.getElementById('p1-action-area').style.display = 'block';
         setFeedbackP1(`👀 Bạn ở lại <strong>${P1_TIME[sec].label}</strong> (${sgn(P1_TIME[sec].w)}đ cho thời gian xem). Hãy chọn thao tác đi kèm rồi bấm <strong>“Xác nhận thao tác”</strong>.`, 'blue');
@@ -637,11 +633,10 @@ Ban lam chu thuat toan · HTML
             const lvl = sec === 5 ? ['', 'tương tác trung bình', 'tương tác khá', 'tương tác khá cao'][n]
                                   : ['', 'tương tác cao', 'tương tác rất cao', 'tương tác tối đa'][n];
             const names = acts.map(a => P1_ACT[a].name).join(' + ');
-            const cm = (acts.includes('comment') && sec === 5) ? ' Bạn chỉ dừng 5 giây nên bình luận chỉ được +1đ thay vì +5đ.' : '';
             const tail = sec === 5
                 ? 'Bạn mới đọc lướt nhưng đã có thao tác, thuật toán bắt đầu coi đây là nội dung bạn thích.'
                 : 'Bạn xem lâu và còn tương tác, thuật toán sẽ đẩy chủ đề này lên rất mạnh.';
-            msg = `<strong>Đã ${sgn(r.delta)}đ cho chủ đề ${topic}</strong> ${detail} với thao tác: ${names}. Mức độ: <strong>${lvl}</strong>.${cm} ${tail}`;
+            msg = `<strong>Đã ${sgn(r.delta)}đ cho chủ đề ${topic}</strong> ${detail} với thao tác: ${names}. Mức độ: <strong>${lvl}</strong>. ${tail}`;
             color = 'green';
         }
         setFeedbackP1('💡 ' + msg, color);
@@ -651,7 +646,7 @@ Ban lam chu thuat toan · HTML
         document.getElementById('btn-p1-next').style.display = 'none';
         if (interactionCountP1 >= 10) { showSummaryP1(); return; }
  
-        currentP1Topic = pickWeightedTopic();  // không ép chủ đề: 100% theo điểm ưu tiên hiện tại
+        currentP1Topic = pickWeightedTopic();
         interactionCountP1++;
         p1OccurrenceCount[currentP1Topic]++;
         p1Time = null; p1Acts = [];
@@ -857,7 +852,6 @@ Ban lam chu thuat toan · HTML
     /* LOGIC PHẦN III                                                  */
     /* =============================================================== */
     const p3Colors = ['#ef4444', '#0088ff', '#00e6a8', '#a855f7'];
-    // Mỗi chủ đề: [tên, icon, trọng số ban đầu]; chủ đề đầu tiên là chủ đề đang "tràn ngập"
     const p3Scenarios = [
         { desc: 'Bảng tin đang tràn ngập bài về <strong>Trò chơi (70%)</strong>.',
           cats: [['Trò chơi','🎮',70], ['Học tập','📚',10], ['Khám phá','🚀',10], ['Nghệ thuật','🎨',10]] },
@@ -929,7 +923,6 @@ Ban lam chu thuat toan · HTML
         }
     }
  
-    // Chia đúng 10 bài theo tỷ lệ (phương pháp phần dư lớn nhất) để số bài luôn khớp với biểu đồ
     function allocateSlots(weights, n) {
         const total = weights.reduce((a, b) => a + b, 0);
         const raw = weights.map(w => (w / total) * n);
@@ -960,7 +953,6 @@ Ban lam chu thuat toan · HTML
                 ${pct.map((p, i) => `<div style="width:${p}%;background:${p3Colors[i]};"></div>`).join('')}
             </div>`;
  
-        // Tạo danh sách bài theo đúng số lượng rồi xáo trộn thứ tự
         let order = [];
         slots.forEach((n, i) => { for (let k = 0; k < n; k++) order.push(i); });
         for (let i = order.length - 1; i > 0; i--) {
@@ -999,7 +991,7 @@ Ban lam chu thuat toan · HTML
     }
  
     /* =============================================================== */
-    /* LOGIC PHẦN IV: TỪNG BƯỚC + BẢN ĐÁNH GIÁ KẾT QUẢ                 */
+    /* LOGIC PHẦN IV                                                   */
     /* =============================================================== */
     const p4TalkOptions = ['Cha mẹ', 'Thầy cô', 'Bạn bè'];
     const p4Steps = [
@@ -1052,7 +1044,6 @@ Ban lam chu thuat toan · HTML
         if (el && currentP4Step < p4Steps.length) p4UserData[p4Steps[currentP4Step].key] = el.value.trim();
     }
  
-    // ---- Chấm điểm theo thang 0–3 cho mỗi tiêu chí ----
     function scoreP4() {
         const d = p4UserData;
         const contrast = /lợi ích|ưu điểm|tích cực|hai mặt|hai chiều|đa chiều|so sánh|ngược lại|hạn chế|tác hại|phản biện|ý kiến|quan điểm|góc nhìn|mặt trái|khác/i;
@@ -1225,7 +1216,7 @@ Ban lam chu thuat toan · HTML
     }
  
     /* =============================================================== */
-    /* LOGIC PHẦN V: CÀI ĐẶT GIỜ SỬ DỤNG (VIDEO TIKTOK)                */
+    /* LOGIC PHẦN V                                                    */
     /* =============================================================== */
     const p5Videos = [
         'https://vt.tiktok.com/ZSbyk74um/',
@@ -1289,17 +1280,6 @@ Ban lam chu thuat toan · HTML
         document.getElementById('p5-fast').disabled = !idle;
     }
  
-    function p5PickTime(m) {
-        if (p5.state !== 'idle') return;
-        p5.min = m; p5.remaining = m * 60;
-        document.querySelectorAll('.p5-time-btn').forEach(b => b.className = 'btn p5-time-btn btn-outline');
-        document.getElementById('p5-time-' + m).className = 'btn p5-time-btn btn-primary';
-        document.getElementById('p5-clock').innerText = p5Fmt(p5.remaining);
-        document.getElementById('p5-status').innerText = `Bạn đã cài đặt giờ sử dụng: ${m} phút. Bấm “Bắt đầu lướt”.`;
-        p5UpdateButtons();
-    }
- 
-    /* ---- Hẹn giờ chạy nền (Web Worker không bị trình duyệt làm chậm khi chuyển tab) ---- */
     let p5Worker = null;
     function p5StopTimer() {
         clearInterval(p5.timer);
@@ -1321,7 +1301,6 @@ Ban lam chu thuat toan · HTML
         }
     }
  
-    /* ---- Chuông báo hết giờ (nghe được cả khi đang ở tab/trang khác) ---- */
     let p5Audio = null, p5AlarmNodes = [], p5BaseTitle = document.title;
     function p5UnlockAudio() {
         try {
@@ -1338,7 +1317,6 @@ Ban lam chu thuat toan · HTML
             if (!p5Audio) return;
             p5AlarmStop(true);
             const t0 = p5Audio.currentTime + 0.05;
-            // 3 nhóm, mỗi nhóm 3 tiếng bíp, lặp lại trong khoảng 12 giây
             for (let g = 0; g < 3; g++) {
                 for (let b = 0; b < 3; b++) {
                     const t = t0 + g * 4 + b * 0.5;
@@ -1403,8 +1381,7 @@ Ban lam chu thuat toan · HTML
             p5StopTimer();
             p5.remaining = 0;
             p5.state = 'timeup';
-            p5.token++; // hủy các lượt tải video đang chờ
-            // Dừng phát video (dừng âm thanh) rồi làm mờ khung
+            p5.token++;
             document.querySelectorAll('#p5-video-box iframe').forEach(f => { f.src = 'about:blank'; });
             document.getElementById('p5-clock').innerText = '00:00';
             document.getElementById('p5-status').innerText = 'Đã hết thời gian cài đặt.';
@@ -1515,4 +1492,3 @@ Ban lam chu thuat toan · HTML
  
 </body>
 </html>
- 
