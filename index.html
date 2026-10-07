@@ -1,6 +1,6 @@
 
 
-Ban lam chu thuat ton · HTML
+Ban lam chu thuat toan · HTML
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -162,18 +162,32 @@ Ban lam chu thuat ton · HTML
             <div class="post-content" id="p1-content">Loading...</div>
         </div>
  
-        <p style="font-size: 0.85rem; color: var(--text-muted);">Thao tác của bạn: bấm Xem / Thích / Chia sẻ thì nút "Bỏ qua" sẽ bị khóa; bấm "Bỏ qua" thì các nút còn lại bị khóa, cho đến khi sang nội dung tiếp theo.</p>
-        <div class="btn-group">
-            <button class="btn btn-outline btn-p1-act" id="p1-btn-xem" onclick="interactP1('xem')">👁️ Xem (+1)</button>
-            <button class="btn btn-primary btn-p1-act" id="p1-btn-thich" onclick="interactP1('thich')">❤️ Thích (+3)</button>
-            <button class="btn btn-success btn-p1-act" id="p1-btn-chiase" onclick="interactP1('chiase')">↗ Chia sẻ (+4)</button>
-            <button class="btn btn-warning btn-p1-act" id="p1-btn-boqua" onclick="interactP1('boqua')">⏭️ Bỏ qua (trừ điểm)</button>
+        <div id="p1-time-area">
+            <p style="font-size: 0.88rem; font-weight: 600;">⏱️ Bước 1: Bạn dành bao lâu cho bài đăng này?</p>
+            <div class="btn-group">
+                <button class="btn btn-outline btn-p1-time" onclick="pickTimeP1(2)">⚡ &lt; 2 giây: mắt nhận diện rồi lướt đi ngay (-5đ)</button>
+                <button class="btn btn-outline btn-p1-time" onclick="pickTimeP1(5)">👀 5 giây: dừng lại đọc tiêu đề, đọc lướt (+2đ)</button>
+                <button class="btn btn-outline btn-p1-time" onclick="pickTimeP1(15)">📖 15 giây: xem chi tiết bài viết (+8đ)</button>
+            </div>
+        </div>
  
-            <button class="btn btn-primary" id="btn-p1-next" style="margin-left: auto; display: none; background: #0284c7;" onclick="nextPostP1()">Nội dung tiếp theo ➔</button>
+        <div id="p1-action-area" style="display:none;">
+            <p style="font-size: 0.88rem; font-weight: 600;">👆 Bước 2: Chọn thao tác đi kèm (có thể chọn nhiều, trừ “Không quan tâm”):</p>
+            <div class="btn-group">
+                <button class="btn btn-outline" id="p1-a-skip" onclick="toggleActP1('skip')">🙅 Không quan tâm (-1đ)</button>
+                <button class="btn btn-outline" id="p1-a-like" onclick="toggleActP1('like')">❤️ Thích (+3đ)</button>
+                <button class="btn btn-outline" id="p1-a-share" onclick="toggleActP1('share')">↗ Chia sẻ / Lưu (+3đ)</button>
+                <button class="btn btn-outline" id="p1-a-comment" onclick="toggleActP1('comment')">💬 Bình luận (+5đ)</button>
+            </div>
+            <button class="btn btn-primary" onclick="confirmP1()">✔️ Xác nhận thao tác</button>
         </div>
  
         <div class="feedback-msg" id="p1-feedback">
-            💡 <em>Chọn 1 tương tác để xem thuật toán phản hồi!</em>
+            💡 <em>Chọn thời gian xem để xem thuật toán phản hồi!</em>
+        </div>
+ 
+        <div class="btn-group">
+            <button class="btn btn-primary" id="btn-p1-next" style="display: none; background: #0284c7;" onclick="nextPostP1()">Nội dung tiếp theo ➔</button>
         </div>
  
         <div class="chart-container">
@@ -195,6 +209,8 @@ Ban lam chu thuat ton · HTML
             </table>
         </div>
  
+        <div class="chart-container" id="p1-summary" style="display:none; margin-top: 15px; border: 2px solid var(--primary-blue);"></div>
+ 
         <div class="btn-group" style="margin-top: 15px;">
             <button class="btn btn-outline" onclick="showHistoryP1()">📜 Xem lịch sử tương tác</button>
             <button class="btn btn-outline" onclick="resetP1()">🔄 Làm lại</button>
@@ -202,7 +218,7 @@ Ban lam chu thuat ton · HTML
         </div>
  
         <div style="margin-top: 15px; font-size: 0.85rem; background: #fffbe0; padding: 10px; border-radius: 8px; border: 1px solid #ffe58f;">
-            📌 <strong>Thông điệp:</strong> “Mỗi thao tác đều tạo tín hiệu. Được đề xuất nhiều không có nghĩa là đúng hoặc đáng tin.”
+            📌 <strong>Thông điệp:</strong> “Mắt con người nhận diện nội dung trong 0,3 giây, nhưng thuật toán chỉ đo số giây bạn ở lại. Vậy để loại bỏ nội dung rác không phải là bấm nút ‘không quan tâm’, mà là lướt qua thật nhanh (&lt; 2 giây).”
         </div>
     </section>
  
@@ -465,10 +481,11 @@ Ban lam chu thuat ton · HTML
     }
  
     /* =============================================================== */
-    /* LOGIC PHẦN I                                                    */
+    /* LOGIC PHẦN I (MỚI): S mới = S cũ + trọng số thời gian + trọng số thao tác */
     /* =============================================================== */
-    const p1Topics = { 'Học tập': 5, 'Thể thao': 5, 'Âm nhạc': 5, 'Trò chơi': 5, 'Khám phá': 5 };
-    const p1OccurrenceCount = { 'Học tập': 0, 'Thể thao': 0, 'Âm nhạc': 0, 'Trò chơi': 0, 'Khám phá': 0 };
+    const P1_NAMES = ['Học tập', 'Thể thao', 'Âm nhạc', 'Trò chơi', 'Khám phá'];
+    const p1Topics = {}, p1OccurrenceCount = {};
+    P1_NAMES.forEach(t => { p1Topics[t] = 15; p1OccurrenceCount[t] = 0; });
  
     const p1Database = {
         'Học tập': [
@@ -493,18 +510,26 @@ Ban lam chu thuat ton · HTML
         ]
     };
  
+    const P1_TIME = { 2: { w: -5, label: 'dưới 2 giây' }, 5: { w: 2, label: '5 giây' }, 15: { w: 8, label: '15 giây' } };
+    const P1_ACT = {
+        skip: { name: 'Không quan tâm', w: -1 }, like: { name: 'Thích', w: 3 },
+        share: { name: 'Chia sẻ/Lưu', w: 3 }, comment: { name: 'Bình luận', w: 5 }
+    };
+ 
     let currentP1Topic = 'Học tập';
-    let nextForcedTopic = null;
-    let historyP1 = [];
-    let interactionCountP1 = 0;
+    let historyP1 = [], recordsP1 = [];
+    let interactionCountP1 = 0, p1Time = null, p1Acts = [];
+ 
+    function p1ActW(a) { return (a === 'comment' && p1Time === 5) ? 1 : P1_ACT[a].w; }
+    function sgn(n) { return (n > 0 ? '+' : '') + n; }
  
     function renderChartP1() {
         const container = document.getElementById('p1-chart');
         container.innerHTML = '';
-        let totalScore = Object.values(p1Topics).reduce((a, b) => a + b, 0);
+        const totalScore = Object.values(p1Topics).reduce((a, b) => a + b, 0);
         for (let topic in p1Topics) {
-            let score = p1Topics[topic];
-            let percent = totalScore > 0 ? ((score / totalScore) * 100).toFixed(1) : 0;
+            const score = p1Topics[topic];
+            const percent = totalScore > 0 ? ((score / totalScore) * 100).toFixed(1) : 0;
             container.innerHTML += `
                 <div class="bar-item">
                     <div class="bar-label">
@@ -519,16 +544,11 @@ Ban lam chu thuat ton · HTML
     function renderStatsTableP1() {
         const tbody = document.getElementById('p1-stats-tbody');
         tbody.innerHTML = '';
-        let totalSeen = Math.max(1, interactionCountP1);
+        const totalSeen = Math.max(1, interactionCountP1);
         for (let topic in p1OccurrenceCount) {
-            let count = p1OccurrenceCount[topic];
-            let pct = ((count / totalSeen) * 100).toFixed(1);
-            tbody.innerHTML += `<tr><td><strong>${topic}</strong></td><td>${count} lần</td><td>${pct}%</td></tr>`;
+            const count = p1OccurrenceCount[topic];
+            tbody.innerHTML += `<tr><td><strong>${topic}</strong></td><td>${count} lần</td><td>${((count / totalSeen) * 100).toFixed(1)}%</td></tr>`;
         }
-    }
- 
-    function setAllActionButtonsDisabled(disabled) {
-        document.querySelectorAll('.btn-p1-act').forEach(btn => { btn.disabled = disabled; });
     }
  
     function pickWeightedTopic() {
@@ -538,55 +558,103 @@ Ban lam chu thuat ton · HTML
         return Object.keys(p1Topics)[0];
     }
  
-    function interactP1(action) {
-        document.getElementById('btn-p1-next').style.display = 'inline-flex';
- 
-        if (action === 'boqua') {
-            setAllActionButtonsDisabled(true);
-            p1Topics[currentP1Topic] = Math.max(1, p1Topics[currentP1Topic] - 1);
-            historyP1.push(`Bài ${interactionCountP1}: Bỏ qua chủ đề "${currentP1Topic}".`);
-            const others = Object.keys(p1Topics).filter(t => t !== currentP1Topic);
-            nextForcedTopic = others[Math.floor(Math.random() * others.length)];
-            document.getElementById('p1-feedback').innerHTML =
-                `🚫 Bạn vừa <strong>bỏ qua</strong> chủ đề <strong>${currentP1Topic}</strong>. Bài tiếp theo <strong>chắc chắn KHÔNG</strong> thuộc chủ đề này. Bấm <strong>“Nội dung tiếp theo”</strong>.`;
-        } else {
-            const map = { xem: ['xem', 1], thich: ['thích', 3], chiase: ['chia sẻ', 4] };
-            const [name, delta] = map[action];
- 
-            document.getElementById('p1-btn-boqua').disabled = true;
-            document.getElementById('p1-btn-' + action).disabled = true;
- 
-            p1Topics[currentP1Topic] += delta;
-            historyP1.push(`Bài ${interactionCountP1}: Bạn vừa ${name} chủ đề "${currentP1Topic}".`);
- 
-            let msg;
-            if (action === 'xem') {
-                msg = `Tín hiệu <em>xem</em> khá yếu, nên bài sau được chọn theo điểm ưu tiên hiện tại.`;
-            } else {
-                nextForcedTopic = currentP1Topic;
-                msg = `Bài tiếp theo <strong>chắc chắn vẫn là chủ đề này</strong>!`;
-            }
-            document.getElementById('p1-feedback').innerHTML =
-                `💡 Bạn vừa <strong>${name}</strong> nội dung <strong>${currentP1Topic}</strong> (+${delta} điểm). ${msg} Bấm <strong>“Nội dung tiếp theo”</strong>.`;
-        }
+    // Cập nhật điểm, ghi lịch sử, hiện nút tiếp theo
+    function applyP1(acts) {
+        const topic = currentP1Topic;
+        const tw = P1_TIME[p1Time].w;
+        const aw = acts.reduce((s, a) => s + p1ActW(a), 0);
+        const before = p1Topics[topic];
+        p1Topics[topic] = Math.max(1, before + tw + aw);
+        const delta = p1Topics[topic] - before;
+        const actNames = acts.length ? acts.map(a => P1_ACT[a].name).join(' + ') : 'Không thao tác';
+        recordsP1.push({ n: interactionCountP1, topic, time: P1_TIME[p1Time].label, acts: actNames, delta });
+        historyP1.push(`Bài ${interactionCountP1}: chủ đề "${topic}", xem ${P1_TIME[p1Time].label}, thao tác: ${actNames} → ${sgn(delta)}đ.`);
         renderChartP1();
+        const nb = document.getElementById('btn-p1-next');
+        nb.innerText = interactionCountP1 >= 10 ? '📊 Xem kết quả tổng hợp' : 'Nội dung tiếp theo ➔';
+        nb.style.display = 'inline-flex';
+        return { delta, tw, aw };
+    }
+ 
+    function setFeedbackP1(html, color) {
+        const fb = document.getElementById('p1-feedback');
+        fb.innerHTML = html;
+        const c = { green: ['#f0fdf4', '#bbf7d0', '#166534'], red: ['#fef2f2', '#fecaca', '#991b1b'], amber: ['#fffbeb', '#fde68a', '#92400e'], blue: ['#e0f2fe', '#7dd3fc', '#0369a1'] }[color || 'green'];
+        fb.style.background = c[0]; fb.style.borderColor = c[1]; fb.style.color = c[2];
+    }
+ 
+    function pickTimeP1(sec) {
+        document.querySelectorAll('.btn-p1-time').forEach(b => b.disabled = true);
+        p1Time = sec;
+        const topic = currentP1Topic;
+        if (sec === 2) {
+            const r = applyP1([]);
+            setFeedbackP1(`⚡ <strong>Chủ đề ${topic} đã ${sgn(r.delta)}đ.</strong> Việc lướt nhanh như vậy khiến AI ghi nhận nội dung giữ chân người dùng thất bại và giảm đề xuất.`, 'red');
+            return;
+        }
+        p1Acts = [];
+        document.getElementById('p1-a-comment').innerText = `💬 Bình luận (${sgn(p1ActW('comment'))}đ)`;
+        refreshActBtnsP1();
+        document.getElementById('p1-action-area').style.display = 'block';
+        setFeedbackP1(`👀 Bạn ở lại <strong>${P1_TIME[sec].label}</strong> (${sgn(P1_TIME[sec].w)}đ cho thời gian xem). Hãy chọn thao tác đi kèm rồi bấm <strong>“Xác nhận thao tác”</strong>.`, 'blue');
+    }
+ 
+    function refreshActBtnsP1() {
+        Object.keys(P1_ACT).forEach(a => {
+            const sel = p1Acts.includes(a);
+            document.getElementById('p1-a-' + a).className = 'btn ' + (sel ? (a === 'skip' ? 'btn-warning' : 'btn-success') : 'btn-outline');
+        });
+    }
+ 
+    function toggleActP1(a) {
+        if (a === 'skip') p1Acts = p1Acts.includes('skip') ? [] : ['skip'];
+        else {
+            p1Acts = p1Acts.filter(x => x !== 'skip');
+            const i = p1Acts.indexOf(a);
+            if (i >= 0) p1Acts.splice(i, 1); else p1Acts.push(a);
+        }
+        refreshActBtnsP1();
+    }
+ 
+    function confirmP1() {
+        if (!p1Acts.length) { alert('Hãy chọn ít nhất một thao tác!'); return; }
+        const topic = currentP1Topic, sec = p1Time, acts = p1Acts.slice();
+        document.getElementById('p1-action-area').style.display = 'none';
+        const r = applyP1(acts);
+        const detail = `(thời gian ${sgn(r.tw)}đ, thao tác ${sgn(r.aw)}đ)`;
+        let msg, color;
+ 
+        if (acts.includes('skip')) {
+            if (sec === 5) {
+                msg = `<strong>${sgn(r.delta)}đ cho chủ đề ${topic}</strong> ${detail}, vì bạn đã tương tác với nội dung và dừng lại 5 giây. Việc ấn “Không quan tâm” chỉ giảm tạm thời để làm bạn nghĩ rằng nội dung đó sẽ không xuất hiện nữa, nhưng thuật toán vẫn ghi nhận bạn đã dừng lại.`;
+                color = 'amber';
+            } else {
+                msg = `<strong>${sgn(r.delta)}đ cho chủ đề ${topic}</strong> ${detail}. Bạn xem chi tiết tới 15 giây nên nút “Không quan tâm” gần như không có tác dụng: thuật toán hiểu rằng bạn rất quan tâm tới chủ đề này, nội dung tương tự sẽ còn xuất hiện nhiều hơn.`;
+                color = 'amber';
+            }
+        } else {
+            const n = acts.length;
+            const lvl = sec === 5 ? ['', 'tương tác trung bình', 'tương tác khá', 'tương tác khá cao'][n]
+                                  : ['', 'tương tác cao', 'tương tác rất cao', 'tương tác tối đa'][n];
+            const names = acts.map(a => P1_ACT[a].name).join(' + ');
+            const cm = (acts.includes('comment') && sec === 5) ? ' Bạn chỉ dừng 5 giây nên bình luận chỉ được +1đ thay vì +5đ.' : '';
+            const tail = sec === 5
+                ? 'Bạn mới đọc lướt nhưng đã có thao tác, thuật toán bắt đầu coi đây là nội dung bạn thích.'
+                : 'Bạn xem lâu và còn tương tác, thuật toán sẽ đẩy chủ đề này lên rất mạnh.';
+            msg = `<strong>Đã ${sgn(r.delta)}đ cho chủ đề ${topic}</strong> ${detail} với thao tác: ${names}. Mức độ: <strong>${lvl}</strong>.${cm} ${tail}`;
+            color = 'green';
+        }
+        setFeedbackP1('💡 ' + msg, color);
     }
  
     function nextPostP1() {
         document.getElementById('btn-p1-next').style.display = 'none';
+        if (interactionCountP1 >= 10) { showSummaryP1(); return; }
  
-        if (interactionCountP1 >= 10) {
-            setAllActionButtonsDisabled(true);
-            alert("Bạn đã hoàn thành xem 10 bài đăng! Hãy quan sát bảng thống kê để xem kết quả.");
-            return;
-        }
-        setAllActionButtonsDisabled(false);
- 
-        if (nextForcedTopic) { currentP1Topic = nextForcedTopic; nextForcedTopic = null; }
-        else currentP1Topic = pickWeightedTopic();
- 
+        currentP1Topic = pickWeightedTopic();  // không ép chủ đề: 100% theo điểm ưu tiên hiện tại
         interactionCountP1++;
         p1OccurrenceCount[currentP1Topic]++;
+        p1Time = null; p1Acts = [];
         document.getElementById('p1-counter-text').innerText = `Bài đăng: ${interactionCountP1} / 10`;
  
         const list = p1Database[currentP1Topic];
@@ -598,7 +666,42 @@ Ban lam chu thuat ton · HTML
         document.getElementById('p1-category').innerText = `Chủ đề: ${currentP1Topic}`;
         document.getElementById('p1-title').innerText = post.title;
         document.getElementById('p1-content').innerText = post.content;
+        document.getElementById('p1-action-area').style.display = 'none';
+        document.getElementById('p1-time-area').style.display = 'block';
+        document.querySelectorAll('.btn-p1-time').forEach(b => b.disabled = false);
+        document.getElementById('p1-summary').style.display = 'none';
+        setFeedbackP1('💡 <em>Chọn thời gian xem để xem thuật toán phản hồi!</em>', 'green');
         renderStatsTableP1();
+    }
+ 
+    function showSummaryP1() {
+        document.getElementById('p1-time-area').style.display = 'none';
+        document.getElementById('p1-action-area').style.display = 'none';
+        const total = Object.values(p1Topics).reduce((a, b) => a + b, 0);
+        let rows = '';
+        let top = null;
+        for (let t in p1Topics) {
+            const c = p1OccurrenceCount[t];
+            if (!top || p1Topics[t] > p1Topics[top]) top = t;
+            rows += `<tr><td><strong>${t}</strong></td><td style="text-align:center;">${c}</td><td style="text-align:center;">15 ➔ ${p1Topics[t]}</td><td style="text-align:center;">${((p1Topics[t] / total) * 100).toFixed(1)}%</td></tr>`;
+        }
+        const detail = recordsP1.map(r => `<tr><td>Bài ${r.n}</td><td>${r.topic}</td><td>${r.time}</td><td>${r.acts}</td><td style="text-align:center;font-weight:700;color:${r.delta < 0 ? '#ef4444' : '#10b981'};">${sgn(r.delta)}đ</td></tr>`).join('');
+        const box = document.getElementById('p1-summary');
+        box.style.display = 'block';
+        box.innerHTML = `
+            <h4 style="font-size:0.95rem;margin-bottom:8px;">🏁 Kết quả tổng hợp sau 10 bài đăng</h4>
+            <table class="stats-table">
+                <thead><tr><th>Chủ đề</th><th style="text-align:center;">Số bài đã gặp</th><th style="text-align:center;">Điểm (đầu ➔ cuối)</th><th style="text-align:center;">Xác suất xuất hiện sau cùng</th></tr></thead>
+                <tbody>${rows}</tbody>
+            </table>
+            <h4 style="font-size:0.9rem;margin:14px 0 6px;">Chi tiết từng bài</h4>
+            <div style="overflow-x:auto;"><table class="stats-table">
+                <thead><tr><th>Bài</th><th>Chủ đề</th><th>Thời gian</th><th>Thao tác</th><th>Điểm</th></tr></thead>
+                <tbody>${detail}</tbody>
+            </table></div>
+            <div class="feedback-msg" style="margin-top:12px;">💡 Chủ đề được thuật toán ưu tiên nhất lúc này là <strong>${top}</strong>. Mỗi giây bạn ở lại và mỗi thao tác của bạn đều là tín hiệu để thuật toán quyết định bạn sẽ thấy gì tiếp theo.</div>`;
+        setFeedbackP1('🏁 Bạn đã hoàn thành 10 bài đăng! Hãy xem bảng kết quả tổng hợp bên dưới.', 'blue');
+        box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
  
     function showHistoryP1() {
@@ -606,20 +709,20 @@ Ban lam chu thuat ton · HTML
     }
  
     function resetP1() {
-        for (let k in p1Topics) p1Topics[k] = 5;
-        for (let k in p1OccurrenceCount) p1OccurrenceCount[k] = 0;
-        historyP1 = [];
-        interactionCountP1 = 0;
-        nextForcedTopic = null;
+        P1_NAMES.forEach(t => { p1Topics[t] = 15; p1OccurrenceCount[t] = 0; });
+        historyP1 = []; recordsP1 = [];
+        interactionCountP1 = 0; p1Time = null; p1Acts = [];
         document.getElementById('p1-title').innerText = '';
         renderChartP1();
         nextPostP1();
-        document.getElementById('p1-feedback').innerText = "💡 Đã đặt lại hệ thống về trạng thái ban đầu.";
+        setFeedbackP1('💡 Đã đặt lại hệ thống về trạng thái ban đầu (mỗi chủ đề 15 điểm).', 'green');
     }
  
     function downloadP1() {
-        let text = "--- Kết quả phần I ---\nThống kê xuất hiện 10 bài:\n";
-        for (let k in p1OccurrenceCount) text += `- ${k}: ${p1OccurrenceCount[k]} lần\n`;
+        let text = "--- Kết quả phần I ---\nThống kê xuất hiện:\n";
+        for (let k in p1OccurrenceCount) text += `- ${k}: ${p1OccurrenceCount[k]} lần | điểm cuối: ${p1Topics[k]}\n`;
+        text += "\nChi tiết từng bài:\n";
+        recordsP1.forEach(r => { text += `Bài ${r.n}: ${r.topic} | xem ${r.time} | ${r.acts} | ${sgn(r.delta)}đ\n`; });
         saveTextFile("Ket_Qua_Phan_1.txt", text);
     }
  
@@ -1217,7 +1320,7 @@ Ban lam chu thuat ton · HTML
             p5.timer = setInterval(p5Tick, 500);
         }
     }
-
+ 
     /* ---- Chuông báo hết giờ (nghe được cả khi đang ở tab/trang khác) ---- */
     let p5Audio = null, p5AlarmNodes = [], p5BaseTitle = document.title;
     function p5UnlockAudio() {
